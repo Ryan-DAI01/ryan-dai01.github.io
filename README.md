@@ -31,13 +31,13 @@ Open http://127.0.0.1:4173.
 
 ## Content
 
-- Three selected research projects with original paper figures and the supplied 12-publication bibliography.
+- Selected works: APeG, Visual Geometric 6-DoF Grasping, and E3GNet; plus the supplied 12-publication bibliography.
 - Search and year filters, publication ordering, and formatted citation copying.
 - Google Scholar and email links.
-- Responsive layouts, expandable paper figures, and an original conceptual robot illustration.
+- Large, high-contrast typography; responsive layouts; expandable paper figures; and animated robot and geometry concept illustrations.
 - No login, analytics, remote fonts, forms, or server-side data collection.
 
-Publication metadata follows the supplied Google Scholar snapshot. Citation counts are dated November 2026 and are not live. The hero is a concept illustration; research thumbnails are original figures with sources listed below.
+Publication metadata follows the supplied Google Scholar snapshot. Citation counts are dated November 2026 and are not live. The hero and VG-Grasp visual are concept illustrations. APeG and E3GNet use original paper figures with sources listed below.
 
 Research description sources:
 - https://chenthree.github.io/publication/2025-08-13-APeG
@@ -58,6 +58,12 @@ To request Google indexing, verify the URL-prefix property https://ryan-dai01.gi
 
 - APeG framework: https://raw.githubusercontent.com/THU-VCLab/APeG/master/images/Framework.png
 - E3GNet, Figure 1: https://arxiv.org/html/2410.22980v3/images/framework.png
-- GAP-RL, Figure 1: https://arxiv.org/pdf/2410.03509v1 (Figure 1, extracted at 300 dpi)
 
-The research images are stored locally; the GAP-RL figure is extracted from the paper PDF without changing its content. Click a research figure to open it at a larger size. Without JavaScript, its link opens the original image directly.
+Paper figures are stored locally without changing their content. Click a paper figure to open it at a larger size. Without JavaScript, its link opens the original image directly. Visual Geometric currently uses a clearly labeled concept illustration until its paper figure is available.
+
+
+## Motion and readability
+
+The dark navy and mint interface uses 17–18 px body text, 16 px author names, and at least 14 px metadata. The hero combines an animated arm, moving perception cues, and a lightweight canvas point network. Cards enter as visitors scroll, and the header shows reading progress.
+
+The Pause motion control stops animation and remembers the preference in localStorage on that browser. A reduced-motion system preference starts the site paused; visitors may explicitly enable it. The canvas stops rendering when the hero is offscreen or the tab is hidden. All content remains available without JavaScript.
