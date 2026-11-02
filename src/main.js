@@ -3,10 +3,45 @@
   const records = JSON.parse(document.getElementById('publication-data').textContent);
   const byId = new Map(records.map(p => [p.id, p]));
   const rows = [...document.querySelectorAll('.publication-row')];
-  const groups = [...document.querySelectorAll('.publication-year')];
+  const rowById = new Map(rows.map(row => [row.dataset.id, row]));
+  const byCitations = (a, b) => b.citations - a.citations || b.year - a.year || a.title.localeCompare(b.title);
+  function renderOrder() {
+    let sections;
+    if (sort.value === 'recent') {
+      sections = [...new Set(records.map(p => p.year))].sort((a,b) => b-a)
+        .map(y => ({key:'year-'+y, label:String(y), papers:records.filter(p => p.year===y).sort(byCitations)}));
+      orderHint.textContent = 'Ordered by publication year, newest first.';
+    } else if (sort.value === 'cited') {
+      sections = [{key:'cited', label:'Citations', papers:[...records].sort(byCitations)}];
+      orderHint.textContent = 'Ordered by citation count, highest first.';
+    } else {
+      sections = [
+        {key:'first', label:'First author', papers:records.filter(p => p.first).sort(byCitations)},
+        {key:'coauthored', label:'Coauthored', papers:records.filter(p => !p.first).sort(byCitations)}
+      ];
+      orderHint.textContent = 'First-author work first; papers in each group are ordered by citation count.';
+    }
+    const fragment = document.createDocumentFragment();
+    for (const group of sections) {
+      const section = document.createElement('section');
+      section.className = 'publication-group';
+      const heading = document.createElement('h3');
+      heading.id = 'publication-group-' + group.key;
+      heading.textContent = group.label;
+      section.setAttribute('aria-labelledby', heading.id);
+      const list = document.createElement('div');
+      for (const p of group.papers) list.appendChild(rowById.get(p.id));
+      section.append(heading, list);
+      fragment.appendChild(section);
+    }
+    document.getElementById('publication-list').replaceChildren(fragment);
+  }
+
   const tabs = [...document.querySelectorAll('[data-filter]')];
   const search = document.getElementById('publication-search');
   const year = document.getElementById('year-filter');
+  const sort = document.getElementById('publication-sort');
+  const orderHint = document.getElementById('order-hint');
   const count = document.getElementById('result-count');
   let authorship = 'all';
   document.getElementById('filters').hidden = false;
@@ -22,7 +57,7 @@
       row.hidden = !matches;
       if (matches) visible++;
     }
-    for (const group of groups) group.hidden = ![...group.querySelectorAll('.publication-row')].some(r => !r.hidden);
+    for (const group of document.querySelectorAll('.publication-group')) group.hidden = ![...group.querySelectorAll('.publication-row')].some(r => !r.hidden);
     count.textContent = visible === records.length ? visible + ' publications' : visible + ' of ' + records.length + ' publications';
     document.getElementById('empty-state').hidden = visible > 0;
   }
@@ -33,9 +68,10 @@
   }));
   search.addEventListener('input', filter);
   year.addEventListener('change', filter);
+  sort.addEventListener('change', () => { renderOrder(); filter(); });
   document.getElementById('filters').addEventListener('submit', e => e.preventDefault());
   document.getElementById('reset-filters').addEventListener('click', () => {
-    search.value = ''; year.value = 'all'; tabs[0].click(); search.focus();
+    search.value = ''; year.value = 'all'; sort.value = 'featured'; renderOrder(); tabs[0].click(); search.focus();
   });
   const dialog = document.getElementById('citation-dialog');
   const citationText = document.getElementById('citation-text');

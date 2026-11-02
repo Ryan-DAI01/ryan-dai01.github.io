@@ -45,3 +45,11 @@ Research description sources:
 
 GitHub Pages documentation:
 https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site
+
+## Publication order and search visibility
+
+The default bibliography shows first-author papers first, with each group ordered by the supplied citation counts. Visitors can also sort by year or citations. The built HTML contains all 12 papers without requiring JavaScript.
+
+The homepage identifies Yixiang Dai using a consistent title, site name, and WebSite/Person/ProfilePage structured data. robots.txt permits crawling, and sitemap.xml includes the canonical homepage URL and its update date.
+
+To request Google indexing, verify the URL-prefix property https://ryan-dai01.github.io/ in Google Search Console, submit sitemap.xml, and use URL Inspection to request indexing. Verification and indexing requests require the owner’s Google account. Crawling, indexing, and ranking are controlled by Google; these settings do not guarantee placement for a name search. Add the homepage URL to the public Google Scholar and GitHub profiles when possible.
