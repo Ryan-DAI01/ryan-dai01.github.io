@@ -149,7 +149,84 @@
     phase: i * 2.399,
     r: i % 5 === 0 ? 2 : 1.1
   }));
+
+  const scene = document.getElementById('grasp-scene');
+  const upperLink = document.getElementById('upper-arm-path');
+  const forearmLink = document.getElementById('forearm-path');
+  const elbowNode = document.getElementById('robot-elbow');
+  const handNode = document.getElementById('robot-gripper');
+  const objectNode = document.getElementById('grasp-object');
+  const shadowNode = document.getElementById('object-shadow');
+  const leftJaw = document.getElementById('left-jaw');
+  const rightJaw = document.getElementById('right-jaw');
+  const sequenceSteps = [...document.querySelectorAll('.grasp-steps li')];
+  let previousPhase = '';
+  const smooth = value => { const t = Math.max(0,Math.min(1,value)); return t*t*(3-2*t); };
+  const mix = (a,b,t) => a+(b-a)*smooth(t);
+  const number = value => Number(value.toFixed(3));
+  function renderRobot(time) {
+    if (!scene) return;
+    const cycle = Math.floor(time/12), t = time % 12;
+    const from = cycle % 2 === 0 ? 385 : 455;
+    const to = cycle % 2 === 0 ? 455 : 385;
+    let x = 338, y = 188, gap = 49, phase = 'approach', holding = false;
+    let objectX = from, objectY = 350;
+    if (t < 1.4) {
+      x=mix(338,from,t/1.4); y=mix(188,190,t/1.4);
+    } else if (t < 2.7) {
+      x=from; y=mix(190,268,(t-1.4)/1.3);
+    } else if (t < 3.4) {
+      x=from; y=268; gap=mix(49,36,(t-2.7)/.7); phase='grasp';
+    } else if (t < 4.8) {
+      x=from; y=mix(268,165,(t-3.4)/1.4); gap=36; phase='lift'; holding=true;
+    } else if (t < 6.4) {
+      x=mix(from,to,(t-4.8)/1.6); y=165; gap=36; phase='lift'; holding=true;
+    } else if (t < 7.8) {
+      x=to; y=mix(165,268,(t-6.4)/1.4); gap=36; phase='place'; holding=true;
+    } else if (t < 8.6) {
+      x=to; y=268; gap=mix(36,49,(t-7.8)/.8); phase='place'; objectX=to;
+    } else if (t < 9.8) {
+      x=to; y=mix(268,190,(t-8.6)/1.2); phase='return'; objectX=to;
+    } else {
+      x=mix(to,338,(t-9.8)/2.2); y=mix(190,188,(t-9.8)/2.2); phase='return'; objectX=to;
+    }
+    if (holding) { objectX=x; objectY=y+82; }
+    const dx=x-170, dy=y-327, a=165, b=175;
+    const cosElbow=Math.max(-1,Math.min(1,(dx*dx+dy*dy-a*a-b*b)/(2*a*b)));
+    const elbow=Math.acos(cosElbow);
+    const shoulder=Math.atan2(dy,dx)-Math.atan2(b*Math.sin(elbow),a+b*Math.cos(elbow));
+    const ex=170+a*Math.cos(shoulder), ey=327+a*Math.sin(shoulder);
+    upperLink.setAttribute('d','M170 327 L'+number(ex)+' '+number(ey));
+    forearmLink.setAttribute('d','M'+number(ex)+' '+number(ey)+' L'+number(x)+' '+number(y));
+    elbowNode.setAttribute('transform','translate('+number(ex)+' '+number(ey)+')');
+    handNode.setAttribute('transform','translate('+number(x)+' '+number(y)+')');
+    leftJaw.setAttribute('transform','translate('+number(-gap)+' 0)');
+    rightJaw.setAttribute('transform','translate('+number(gap)+' 0)');
+    objectNode.setAttribute('transform','translate('+number(objectX)+' '+number(objectY)+')');
+    const lift=(350-objectY)/103;
+    shadowNode.setAttribute('cx',number(objectX));
+    shadowNode.setAttribute('rx',number(36+lift*10));
+    shadowNode.setAttribute('opacity',number(.43-lift*.24));
+    scene.dataset.phase=phase;
+    scene.dataset.holding=String(holding);
+    scene.dataset.objectX=number(objectX);
+    scene.dataset.objectY=number(objectY);
+    scene.dataset.wristX=number(x);
+    scene.dataset.wristY=number(y);
+    scene.dataset.jawGap=number(gap);
+    if (phase !== previousPhase) {
+      const active = phase === 'return' ? 'place' : phase;
+      for (const step of sequenceSteps) {
+        const on=step.dataset.step===active;
+        step.dataset.active=String(on);
+        if (on) step.setAttribute('aria-current','step'); else step.removeAttribute('aria-current');
+      }
+      previousPhase=phase;
+    }
+  }
+
   function draw(time) {
+    renderRobot(time);
     if (!context) return;
     context.clearRect(0, 0, width, height);
     const count = width < 600 ? 24 : 48;
@@ -193,7 +270,7 @@
   function syncFrame() {
     if (frame) cancelAnimationFrame(frame);
     frame = 0; lastFrame = 0;
-    if (running && inView && !document.hidden && context) frame = requestAnimationFrame(tick);
+    if (running && inView && !document.hidden) frame = requestAnimationFrame(tick);
     else { pointer = null; draw(clock); }
   }
   function setMotion(value, persist = false) {

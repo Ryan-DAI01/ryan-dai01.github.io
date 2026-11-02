@@ -64,6 +64,11 @@ Paper figures are stored locally without changing their content. Click a paper f
 
 ## Motion and readability
 
-The dark navy and mint interface uses 17–18 px body text, 16 px author names, and at least 14 px metadata. The hero combines an animated arm, moving perception cues, and a lightweight canvas point network. Cards enter as visitors scroll, and the header shows reading progress.
+The dark navy and mint interface uses 20–22 px introduction text, 18 px author names, and at least 16 px metadata. The hero uses a two-link arm with inverse kinematics and a synchronized approach, close, lift, transfer, place, and release sequence. The object follows the gripper only while held and remains on the table after release. A lightweight point network provides the background. Cards enter as visitors scroll, and the header shows reading progress.
 
 The Pause motion control stops animation and remembers the preference in localStorage on that browser. A reduced-motion system preference starts the site paused; visitors may explicitly enable it. The canvas stops rendering when the hero is offscreen or the tab is hidden. All content remains available without JavaScript.
+
+
+## Profile
+
+Yixiang Dai is a PhD student in the Department of Electronic Engineering, Tsinghua University. Research interests are robotic manipulation, reinforcement learning, VLA, and WAM (World Action Model), with an emphasis on stacked and occluded scenes requiring long-horizon manipulation. The portrait was supplied by Yixiang Dai and is stored unchanged; framing is handled in CSS.

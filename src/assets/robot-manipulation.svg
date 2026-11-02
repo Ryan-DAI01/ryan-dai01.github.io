@@ -1,122 +1,84 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 520" fill="none" role="img" aria-labelledby="hero-art-title hero-art-description">
-<title id="hero-art-title">From language and perception to robotic action</title>
-<desc id="hero-art-description">A sculptural robot arm reaches toward a green mug, surrounded by a camera view, a language instruction, and a planned grasp trajectory.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" id="grasp-scene" viewBox="0 0 600 520" fill="none" role="img" aria-labelledby="hero-art-title hero-art-description" data-phase="approach" data-holding="false">
+<title id="hero-art-title">A complete robotic pick-and-place sequence</title>
+<desc id="hero-art-description">A two-finger gripper approaches a green block, closes around it, lifts it off the table, transfers it to the next position, and releases it after setting it down. Concept illustration.</desc>
 <defs>
-  <linearGradient id="bg" x1="38" y1="20" x2="552" y2="498" gradientUnits="userSpaceOnUse"><stop stop-color="#142c39"/><stop offset=".52" stop-color="#10232f"/><stop offset="1" stop-color="#163335"/></linearGradient>
-  <radialGradient id="glow"><stop stop-color="#7de6cf" stop-opacity=".11"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
-  <linearGradient id="metal" x1="0" y1="0" x2="1" y2=".5"><stop stop-color="#f9fbf9"/><stop offset=".4" stop-color="#d8e1e0"/><stop offset="1" stop-color="#8d9d9f"/></linearGradient>
-  <linearGradient id="metal2" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f7f9f6"/><stop offset=".45" stop-color="#dde5e1"/><stop offset="1" stop-color="#b1c0bb"/></linearGradient>
-  <linearGradient id="mug" x1="304" y1="280" x2="383" y2="305" gradientUnits="userSpaceOnUse"><stop stop-color="#599b83"/><stop offset=".48" stop-color="#75b19a"/><stop offset="1" stop-color="#307461"/></linearGradient>
-  <linearGradient id="link" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#354653"/><stop offset="1" stop-color="#1f333e"/></linearGradient>
-  <linearGradient id="block" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d2a589"/><stop offset="1" stop-color="#a67457"/></linearGradient>
-  <filter id="soft" x="-40%" y="-50%" width="180%" height="200%"><feGaussianBlur stdDeviation="9"/></filter>
-  <filter id="shadow" x="-30%" y="-30%" width="170%" height="180%"><feDropShadow dx="0" dy="8" stdDeviation="9" flood-color="#254337" flood-opacity=".10"/></filter>
-  <filter id="cardshadow" x="-30%" y="-30%" width="170%" height="180%"><feDropShadow dx="0" dy="4" stdDeviation="7" flood-color="#344b42" flood-opacity=".07"/></filter>
-  <pattern id="dots" x="0" y="0" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".8" fill="#80978e" opacity=".26"/></pattern>
-  <clipPath id="frame"><rect x="22" y="18" width="556" height="474" rx="24"/></clipPath>
-  <marker id="arrow" viewBox="0 0 6 6" refX="4" refY="3" markerWidth="5" markerHeight="5" orient="auto"><path d="m0 0 5 3-5 3" fill="none" stroke="#548b75" stroke-width="1.2"/></marker>
+ <linearGradient id="bench-bg" x1="30" y1="20" x2="560" y2="510" gradientUnits="userSpaceOnUse"><stop stop-color="#122735"/><stop offset="1" stop-color="#0c1a28"/></linearGradient>
+ <radialGradient id="bench-halo"><stop stop-color="#5baf9f" stop-opacity=".19"/><stop offset="1" stop-color="#112738" stop-opacity="0"/></radialGradient>
+ <linearGradient id="bench-top" x1="130" y1="285" x2="480" y2="445" gradientUnits="userSpaceOnUse"><stop stop-color="#223b48"/><stop offset="1" stop-color="#172c38"/></linearGradient>
+ <linearGradient id="arm-metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fcffff"/><stop offset=".35" stop-color="#dee9e9"/><stop offset=".72" stop-color="#a7bec2"/><stop offset="1" stop-color="#6c898f"/></linearGradient>
+ <linearGradient id="arm-metal-light" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#edf6f5"/><stop offset="1" stop-color="#b2c9ca"/></linearGradient>
+ <linearGradient id="block-front" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#59bb9d"/><stop offset="1" stop-color="#86ddbe"/></linearGradient>
+ <linearGradient id="block-side" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#448f81"/><stop offset="1" stop-color="#286c64"/></linearGradient>
+ <filter id="bench-shadow" x="-50%" y="-100%" width="200%" height="300%"><feGaussianBlur stdDeviation="8"/></filter>
+ <filter id="arm-shadow" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="4" dy="7" stdDeviation="4" flood-color="#000813" flood-opacity=".35"/></filter>
+ <path id="upper-arm-path" d="M170 327 L165.58 162.059"/>
+ <path id="forearm-path" d="M165.58 162.059 L338 192"/>
 </defs>
-<g clip-path="url(#frame)">
-  <rect x="22" y="18" width="556" height="474" rx="24" fill="url(#bg)"/>
-  <rect x="22" y="18" width="556" height="474" fill="url(#dots)"/>
-  <ellipse cx="303" cy="204" rx="254" ry="180" fill="url(#glow)"/>
-  <circle cx="303" cy="252" r="167" stroke="#87efd0" stroke-opacity=".12"/>
-  <circle cx="303" cy="252" r="205" class="scene-orbit" stroke="#87efd0" stroke-opacity=".4" stroke-dasharray="3 8"/>
-  <!-- Quiet isometric work surface. -->
-  <ellipse cx="311" cy="383" rx="197" ry="39" fill="#536d63" opacity=".13" filter="url(#soft)"/>
-  <path d="m83 326 218-86 220 85v20l-219 84-219-84Z" fill="#203c46"/>
-  <path d="m83 326 219 84v19L83 345Z" fill="#172f3b"/>
-  <path d="m302 410 219-85v20l-219 84Z" fill="#264e50"/>
-  <path d="m83 326 218-86 220 85-219 85Z" fill="#2a4551" stroke="#456f70"/>
-  <g stroke="#5c8a85" stroke-width=".8" opacity=".65">
-    <path d="m119 312 220 84m-183-99 219 85m-183-99 219 84m-183-99 220 85m-183-99 219 84"/>
-    <path d="m119 340 219-85m-182 99 219-85m-183 99 220-84m-183 98 219-84m-182 99 219-85"/>
-  </g>
-  <!-- Supporting objects. -->
-  <ellipse cx="267" cy="363" rx="28" ry="11" fill="#556c60" opacity=".12"/>
-  <path d="m242 335 24-10 27 11v29l-25 10-26-11Z" fill="#b88a6b"/>
-  <path d="m242 335 26 11 25-10-27-11Z" fill="#e7c5aa"/>
-  <path d="m268 346 25-10v29l-25 10Z" fill="url(#block)"/>
-  <ellipse cx="433" cy="328" rx="26" ry="10" fill="#71867b" opacity=".16"/>
-  <path d="M414 299v22c0 13 40 13 40 0v-22" fill="#e8d7ad"/>
-  <ellipse cx="434" cy="299" rx="20" ry="8" fill="#f4e8ca"/>
-  <path d="M423 303v17" stroke="#f7edcf" stroke-width="4" opacity=".6"/>
-  <!-- Target mug and grasp region. -->
-  <ellipse cx="349" cy="344" rx="48" ry="16" fill="#4c7361" opacity=".13" filter="url(#soft)"/>
-  <ellipse class="target-ring" cx="349" cy="342" rx="64" ry="26" stroke="#a2f6d4" stroke-width="1.3" stroke-dasharray="4 5"/>
-  <path d="M377 292c40-14 42 33 8 34" stroke="#3d7c67" stroke-width="10" stroke-linecap="round"/>
-  <path d="M378 291c34-11 37 28 8 30" stroke="#8bc1a9" stroke-width="3" stroke-linecap="round"/>
-  <path d="M311 280v45c0 25 75 25 75 0v-45Z" fill="url(#mug)"/>
-  <ellipse cx="348.5" cy="280" rx="37.5" ry="15" fill="#9dc9b3"/>
-  <ellipse cx="348.5" cy="280" rx="31" ry="10.5" fill="#2b5b4b"/>
-  <path d="M321 294v28c0 8 12 11 19 12" stroke="#a7d1b6" stroke-opacity=".45" stroke-width="4" stroke-linecap="round"/>
-  <g stroke="#9ce8cc" stroke-width="1.2" opacity=".65"><path d="M297 287v-17h15m75 0h15v17m0 37v17h-15m-75 0h-15v-17"/></g>
-  <!-- Robot base. -->
-  <ellipse cx="174" cy="321" rx="45" ry="16" fill="#354b42" opacity=".12"/>
-  <path d="M140 307v14c0 19 69 19 69 0v-14Z" fill="#596e71"/>
-  <ellipse cx="174.5" cy="307" rx="34.5" ry="14" fill="#a1b4b3"/>
-  <path d="M151 278v27c0 15 48 15 48 0v-27Z" fill="url(#metal)"/>
-  <ellipse cx="175" cy="278" rx="24" ry="11" fill="#e7eeea"/>
-  <!-- Arm: rigid links with distinct joints and edge highlights. -->
-  <path d="M174 280 132 222" stroke="#82938e" stroke-width="38" stroke-linecap="round"/>
-  <path d="M171 274 130 219" stroke="url(#metal2)" stroke-width="32" stroke-linecap="round"/>
-  <path d="M164 268 130 224" stroke="#f5f8f3" stroke-width="6" stroke-linecap="round" opacity=".8"/>
-  <circle cx="132" cy="216" r="25" fill="#a3b4af"/>
-  <ellipse cx="127" cy="213" rx="20" ry="23" fill="url(#link)" transform="rotate(-27 127 213)"/>
-  <ellipse cx="125" cy="212" rx="10" ry="13" fill="#718a84" transform="rotate(-27 125 212)"/>
-  <path d="m142 204 69-65" stroke="#a9bcb4" stroke-width="35" stroke-linecap="round"/>
-  <path d="m140 198 68-63" stroke="url(#metal2)" stroke-width="29" stroke-linecap="round"/>
-  <path d="m146 188 56-52" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".7"/>
-  <circle cx="215" cy="133" r="25" fill="#9eafa9"/>
-  <circle cx="210" cy="130" r="21" fill="url(#link)"/>
-  <circle cx="210" cy="130" r="10" fill="#78958a"/>
-  <circle cx="210" cy="130" r="4" fill="#cbd9cd"/>
-  <g class="arm-motion">
-  <path d="m228 143 89 50" stroke="#81958d" stroke-width="31" stroke-linecap="round"/>
-  <path d="m228 138 90 50" stroke="url(#metal2)" stroke-width="27" stroke-linecap="round"/>
-  <path d="m236 137 75 41" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".7"/>
-  <circle cx="324" cy="193" r="19" fill="#3c5351"/>
-  <ellipse cx="324" cy="190" rx="16" ry="12" fill="#a9beb1" transform="rotate(25 324 190)"/>
-  <path d="m327 204 15 23" stroke="url(#metal)" stroke-width="18" stroke-linecap="round"/>
-  <g class="gripper-motion">
-  <!-- Parallel-jaw gripper. -->
-  <path d="m327 228 17-7 20 10-18 8Z" fill="#637d78"/>
-  <path d="m327 228 19 11v14l-19-10Z" fill="#527b7b"/>
-  <path d="m346 239 18-8v14l-18 8Z" fill="#709b93"/>
-  <path d="m329 244-7 8v16l10 4v-15m29-12 10 5v17l-10 5v-16" stroke="#a1c9c3" stroke-width="6" stroke-linejoin="round"/>
-  <path d="M346 253v18" stroke="#4f8d72" stroke-width="1.5" stroke-dasharray="3 4"/>
-  </g>
-  </g>
-  <!-- A planned observation-to-action trajectory. -->
-  <path class="scene-path" d="M452 215C455 170 390 150 359 184" stroke="#91efd0" stroke-width="1.7" stroke-dasharray="4 6" marker-end="url(#arrow)"/>
-  <circle cx="452" cy="215" r="4" fill="#91efd0"/>
-  <!-- Language instruction. -->
-  <g class="instruction-window" filter="url(#cardshadow)">
-    <rect x="56" y="56" width="250" height="43" rx="12" fill="#122c3a" fill-opacity=".98" stroke="#598e7d"/>
-    <path d="m78 69-6 6 6 6m5-12 6 6-6 6" stroke="#6f9680" stroke-width="1.5" stroke-linecap="round"/>
-    <text x="103" y="82" fill="#daeee8" font-size="16" font-family="Arial,Helvetica,sans-serif">“Pick up the green mug.”</text>
-  </g>
-  <!-- Compact camera observation, no numerical results. -->
-  <g class="observation-window" filter="url(#cardshadow)">
-    <rect x="401" y="86" width="137" height="111" rx="12" fill="#122c3a" fill-opacity=".98" stroke="#598e7d"/>
-    <text x="416" y="105" fill="#c9e6df" font-size="15" letter-spacing="1.3" font-family="Arial,Helvetica,sans-serif">VISION</text>
-    <rect x="413" y="116" width="113" height="68" rx="6" fill="#203e48"/>
-    <path d="m418 164 52-29 51 30-49 16Z" fill="#3b625e"/>
-    <g fill="#5d8c73"><circle cx="465" cy="141" r="2"/><circle cx="474" cy="143" r="2"/><circle cx="460" cy="149" r="2"/><circle cx="468" cy="151" r="2.5"/><circle cx="477" cy="151" r="2"/><circle cx="461" cy="158" r="2"/><circle cx="470" cy="161" r="2"/><circle cx="480" cy="158" r="2"/><circle cx="483" cy="147" r="1.5"/></g>
-    <g fill="#c6a07d"><circle cx="438" cy="157" r="2"/><circle cx="444" cy="162" r="2"/><circle cx="436" cy="165" r="2"/><circle cx="444" cy="169" r="2"/></g>
-    <g fill="#b4b8a2"><circle cx="496" cy="157" r="2"/><circle cx="503" cy="158" r="2"/><circle cx="500" cy="165" r="2"/></g>
-    <path d="M453 139v-6h9m19 0h8v6m0 24v7h-8m-19 0h-9v-7" stroke="#67977b" stroke-width="1.2"/>
-    <path class="scan-line" d="M417 121h105" stroke="#9cf3d3" stroke-width="1.4"/>
-  </g>
-  <!-- Research areas, integrated with the illustration. -->
-  <path d="M61 442h478" stroke="#476d67"/>
-  <g font-family="Arial,Helvetica,sans-serif" font-size="16" fill="#c5e7db">
-    <circle class="scene-step scene-step-1" cx="78" cy="466" r="3" fill="#91efd0"/><text x="91" y="470">Perceive</text>
-    <path d="M168 466h26m-4-3 4 3-4 3" stroke="#91c7b8"/>
-    <circle class="scene-step scene-step-2" cx="244" cy="466" r="3" fill="#91efd0"/><text x="257" y="470">Reason</text>
-    <path d="M332 466h26m-4-3 4 3-4 3" stroke="#91c7b8"/>
-    <circle class="scene-step scene-step-3" cx="409" cy="466" r="3" fill="#91efd0"/><text x="422" y="470">Act</text>
-  </g>
+<rect x="12" y="12" width="576" height="496" rx="24" fill="url(#bench-bg)" stroke="#35525c"/>
+<ellipse cx="325" cy="242" rx="250" ry="216" fill="url(#bench-halo)"/>
+<g stroke="#598277" opacity=".16">
+ <path d="M44 92H556M44 132H556M44 172H556M44 212H556"/>
+ <path d="M104 60V280M184 60V280M264 60V280M344 60V280M424 60V280M504 60V280"/>
 </g>
-<rect x="22.5" y="18.5" width="555" height="473" rx="23.5" stroke="#50776e" stroke-opacity=".8"/>
+<!-- Clean work surface and two placement pads. -->
+<ellipse cx="312" cy="441" rx="223" ry="34" fill="#020a12" opacity=".4" filter="url(#bench-shadow)"/>
+<path d="m70 355 192-83 292 103v22l-194 82-290-102Z" fill="#122835"/>
+<path d="m70 355 290 102v22L70 377Z" fill="#162e3a"/>
+<path d="m360 457 194-82v22l-194 82Z" fill="#21424c"/>
+<path d="m70 355 192-83 292 103-194 82Z" fill="url(#bench-top)" stroke="#45696c" stroke-width="1.3"/>
+<g stroke="#51736e" stroke-width=".8" opacity=".27"><path d="M111.875 345.875 L383.125 445.75"/><path d="M123.75 367.5 L300 294.375"/><path d="M133.75 336.75 L406.25 436.5"/><path d="M157.5 380 L335 306.75"/><path d="M155.625 327.625 L429.375 427.25"/><path d="M191.25 392.5 L370 319.125"/><path d="M177.5 318.5 L452.5 418"/><path d="M225 405 L405 331.5"/><path d="M199.375 309.375 L475.625 408.75"/><path d="M258.75 417.5 L440 343.875"/><path d="M221.25 300.25 L498.75 399.5"/><path d="M292.5 430 L475 356.25"/><path d="M243.125 291.125 L521.875 390.25"/><path d="M326.25 442.5 L510 368.625"/></g>
+<ellipse cx="385" cy="394" rx="44" ry="17" fill="#7de4bd" fill-opacity=".035" stroke="#729e8c" stroke-width="1.3" stroke-dasharray="3 5"/>
+<ellipse cx="455" cy="394" rx="44" ry="17" fill="#94bfff" fill-opacity=".035" stroke="#6c8caa" stroke-width="1.3" stroke-dasharray="3 5"/>
+<ellipse id="object-shadow" cx="385" cy="394" rx="36" ry="11" fill="#020e17" opacity=".43"/>
+<!-- Robot pedestal. -->
+<ellipse cx="170" cy="398" rx="61" ry="20" fill="#040e16" opacity=".4"/>
+<path d="M124 373v17c0 25 92 25 92 0v-17Z" fill="#47616b"/>
+<ellipse cx="170" cy="373" rx="46" ry="18" fill="#839ea5"/>
+<ellipse cx="170" cy="373" rx="37" ry="12" fill="#bdced0"/>
+<path d="M144 335v32c0 18 52 18 52 0v-32Z" fill="url(#arm-metal)"/>
+<ellipse cx="170" cy="335" rx="26" ry="12" fill="#e3eeeb"/>
+<path d="M148 348v17" stroke="#f9fffc" stroke-width="3" opacity=".7"/>
+<!-- The target remains attached to the fingers while being carried. -->
+<g id="grasp-object" transform="translate(385 350)">
+ <path d="m-32-18 32-18 32 18-32 18Z" fill="#abefd2" stroke="#b8f9e1" stroke-width=".7"/>
+ <path d="m-32-18 32 18v38l-32-18Z" fill="url(#block-front)"/>
+ <path d="M0 0 32-18v38L0 38Z" fill="url(#block-side)"/>
+ <path d="M-28-15-4-2V31" stroke="#c1f5dc" stroke-opacity=".55" stroke-width="2" stroke-linecap="round"/>
+ <path d="M0 0v38" stroke="#9be0c2" stroke-opacity=".45"/>
+</g>
+<!-- Continuous joints are solved from the wrist pose every frame. -->
+<g id="robot-links" stroke-linecap="round" stroke-linejoin="round" filter="url(#arm-shadow)">
+ <use href="#upper-arm-path" stroke="#68828b" stroke-width="38"/>
+ <use href="#upper-arm-path" stroke="url(#arm-metal)" stroke-width="32"/>
+ <use href="#upper-arm-path" stroke="#f8ffff" stroke-opacity=".6" stroke-width="5" transform="translate(-5 -3)"/>
+ <circle cx="170" cy="327" r="26" fill="#2b424c" stroke="#9bb3b7" stroke-width="3"/>
+ <circle cx="170" cy="327" r="15" fill="#617b82"/>
+ <circle cx="170" cy="327" r="7" fill="#addbcf"/>
+ <use href="#forearm-path" stroke="#5e7982" stroke-width="32"/>
+ <use href="#forearm-path" stroke="url(#arm-metal-light)" stroke-width="26"/>
+ <use href="#forearm-path" stroke="#f7fffc" stroke-opacity=".8" stroke-width="4" transform="translate(-3 -3)"/>
+ <g id="robot-elbow" transform="translate(165.58 162.059)">
+  <circle r="25" fill="#344e58" stroke="#b5cece" stroke-width="3"/>
+  <circle r="15" fill="#7e9ba0"/><circle r="7" fill="#d6efe7"/>
+  <circle r="19" stroke="#a8d9d0" stroke-opacity=".4" stroke-width="1"/>
+ </g>
+</g>
+<g id="robot-gripper" transform="translate(338 192)">
+ <circle r="19" fill="#3c5963" stroke="#bacfce" stroke-width="3"/>
+ <circle r="9" fill="#b7d0d0"/>
+ <path d="M-25 9h50v17h-50Z" fill="#abc4c5"/>
+ <rect x="-51" y="18" width="102" height="20" rx="6" fill="#4c6872" stroke="#a0bec0"/>
+ <path d="M-44 22h88" stroke="#d8ece8" stroke-width="2"/>
+ <rect x="-10" y="25" width="20" height="5" rx="2.5" fill="#9cf1cc"/>
+ <g id="left-jaw" transform="translate(-49 0)">
+  <path d="M-9 35H3v9H0v52H-8V44H-9Z" fill="#bdd0cf" stroke="#e3efea" stroke-width=".6"/>
+  <rect x="0" y="66" width="4" height="30" rx="1.5" fill="#34565a"/>
+ </g>
+ <g id="right-jaw" transform="translate(49 0)">
+  <path d="M-3 35H9v9H8v52H0V44H-3Z" fill="#a6bfc1" stroke="#d9e8e7" stroke-width=".6"/>
+  <rect x="-4" y="66" width="4" height="30" rx="1.5" fill="#34565a"/>
+ </g>
+</g>
+<!-- Subtle workshop details. -->
+<path d="M42 469v14h14m488 0h14v-14M42 51V37h14m488 0h14v14" stroke="#73968f" stroke-width="1.4" opacity=".55"/>
 </svg>
