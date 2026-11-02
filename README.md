@@ -34,10 +34,10 @@ Open http://127.0.0.1:4173.
 - Selected works: APeG, Visual Geometric 6-DoF Grasping, and E3GNet; plus the supplied 12-publication bibliography.
 - Search and year filters, publication ordering, and formatted citation copying.
 - Google Scholar and email links.
-- Large, high-contrast typography; responsive layouts; expandable paper figures; and animated robot and geometry concept illustrations.
+- Large, high-contrast typography; responsive layouts; expandable paper figures; and an animated robot concept illustration.
 - No login, analytics, remote fonts, forms, or server-side data collection.
 
-Publication metadata follows the supplied Google Scholar snapshot. Citation counts are dated November 2026 and are not live. The hero and VG-Grasp visual are concept illustrations. APeG and E3GNet use original paper figures with sources listed below.
+Publication metadata follows the supplied Google Scholar snapshot. Citation counts are dated November 2026 and are not live. The hero is a concept illustration. All three selected works use original figures with sources listed below.
 
 Research description sources:
 - https://chenthree.github.io/publication/2025-08-13-APeG
@@ -57,9 +57,10 @@ To request Google indexing, verify the URL-prefix property https://ryan-dai01.gi
 ## Figure sources
 
 - APeG framework: https://raw.githubusercontent.com/THU-VCLab/APeG/master/images/Framework.png
+- VG-Grasp framework: supplied by Yixiang Dai, stored in src/assets/visual-geometric-framework.png.
 - E3GNet, Figure 1: https://arxiv.org/html/2410.22980v3/images/framework.png
 
-Paper figures are stored locally without changing their content. Click a paper figure to open it at a larger size. Without JavaScript, its link opens the original image directly. Visual Geometric currently uses a clearly labeled concept illustration until its paper figure is available.
+Paper figures are stored locally without changing their content. Click a paper figure to open it at a larger size. Without JavaScript, its link opens the original image directly.
 
 
 ## Motion and readability
