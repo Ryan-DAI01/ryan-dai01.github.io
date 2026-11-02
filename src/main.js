@@ -155,67 +155,145 @@
   const forearmLink = document.getElementById('forearm-path');
   const elbowNode = document.getElementById('robot-elbow');
   const handNode = document.getElementById('robot-gripper');
-  const objectNode = document.getElementById('grasp-object');
-  const shadowNode = document.getElementById('object-shadow');
   const leftJaw = document.getElementById('left-jaw');
   const rightJaw = document.getElementById('right-jaw');
+  const objectLayer = document.getElementById('scene-objects');
+  const targetFrame = document.getElementById('target-frame');
+  const targetScan = document.getElementById('target-scan');
+  const transferPath = document.getElementById('transfer-path');
+  const placementRipple = document.getElementById('placement-ripple');
+  const sceneTask = document.getElementById('scene-task');
+  const placedCount = document.getElementById('placed-count');
+  const objects = [...document.querySelectorAll('#grasp-scene .movable-object')].map(node => ({
+    node,
+    id: node.id.slice(7),
+    source: {x: Number(node.dataset.sourceX), y: Number(node.dataset.sourceY)},
+    destination: {x: Number(node.dataset.placeX), y: Number(node.dataset.placeY)},
+    depth: Number(node.dataset.depth),
+    color: node.dataset.color,
+    shadow: document.getElementById(node.id.replace('object-', 'shadow-')),
+    slot: document.getElementById(node.id.replace('object-', 'slot-'))
+  }));
   const sequenceSteps = [...document.querySelectorAll('.grasp-steps li')];
-  let previousPhase = '';
   const smooth = value => { const t = Math.max(0,Math.min(1,value)); return t*t*(3-2*t); };
   const mix = (a,b,t) => a+(b-a)*smooth(t);
   const number = value => Number(value.toFixed(3));
+  const safeHeight = x => 140 + Math.max(0,x-400)*.42;
+  const pose = (node,x,y) => node.setAttribute('transform','translate('+number(x)+' '+number(y)+')');
+  let previousPhase = '', previousMove = -1, previousOrder = '';
   function renderRobot(time) {
-    if (!scene) return;
-    const cycle = Math.floor(time/12), t = time % 12;
-    const from = cycle % 2 === 0 ? 385 : 455;
-    const to = cycle % 2 === 0 ? 455 : 385;
-    let x = 338, y = 188, gap = 49, phase = 'approach', holding = false;
-    let objectX = from, objectY = 350;
-    if (t < 1.4) {
-      x=mix(338,from,t/1.4); y=mix(188,190,t/1.4);
-    } else if (t < 2.7) {
-      x=from; y=mix(190,268,(t-1.4)/1.3);
-    } else if (t < 3.4) {
-      x=from; y=268; gap=mix(49,36,(t-2.7)/.7); phase='grasp';
-    } else if (t < 4.8) {
-      x=from; y=mix(268,165,(t-3.4)/1.4); gap=36; phase='lift'; holding=true;
-    } else if (t < 6.4) {
-      x=mix(from,to,(t-4.8)/1.6); y=165; gap=36; phase='lift'; holding=true;
-    } else if (t < 7.8) {
-      x=to; y=mix(165,268,(t-6.4)/1.4); gap=36; phase='place'; holding=true;
-    } else if (t < 8.6) {
-      x=to; y=268; gap=mix(36,49,(t-7.8)/.8); phase='place'; objectX=to;
-    } else if (t < 9.8) {
-      x=to; y=mix(268,190,(t-8.6)/1.2); phase='return'; objectX=to;
+    if (!scene || objects.length !== 3) return;
+    // Clear from the top down, then rebuild from the bottom up. Every loop
+    // boundary has the same object arrangement and neutral wrist pose.
+    const move = Math.floor(time / 12) % 6, t = time % 12;
+    const reverse = move >= 3, index = reverse ? 5-move : move;
+    const activeObject = objects[index];
+    const from = reverse ? activeObject.destination : activeObject.source;
+    const to = reverse ? activeObject.source : activeObject.destination;
+    const offset = 70, openGap = 45, closedGap = 30;
+    let x = 300, y = 142, gap = openGap, phase = 'approach', holding = false;
+    const released = t >= 8.1;
+    if (t < .7) {
+      // A short perception dwell makes the next target legible.
+    } else if (t < 1.8) {
+      x=mix(300,from.x,(t-.7)/1.1); y=mix(142,safeHeight(from.x),(t-.7)/1.1);
+    } else if (t < 3) {
+      x=from.x; y=mix(safeHeight(x),from.y-offset,(t-1.8)/1.2);
+    } else if (t < 3.65) {
+      x=from.x; y=from.y-offset; gap=mix(openGap,closedGap,(t-3)/.65); phase='grasp';
+    } else if (t < 4.9) {
+      x=from.x; y=mix(from.y-offset,safeHeight(x),(t-3.65)/1.25); gap=closedGap; phase='lift'; holding=true;
+    } else if (t < 6.6) {
+      const u=smooth((t-4.9)/1.7);
+      x=from.x+(to.x-from.x)*u; y=safeHeight(x)-10*Math.sin(Math.PI*u); gap=closedGap; phase='transfer'; holding=true;
+    } else if (t < 8.1) {
+      x=to.x; y=mix(safeHeight(x),to.y-offset,(t-6.6)/1.5); gap=closedGap; phase='place'; holding=true;
+    } else if (t < 8.8) {
+      x=to.x; y=to.y-offset; gap=mix(closedGap,openGap,(t-8.1)/.7); phase='place';
+    } else if (t < 9.9) {
+      x=to.x; y=mix(to.y-offset,safeHeight(x),(t-8.8)/1.1); phase='return';
     } else {
-      x=mix(to,338,(t-9.8)/2.2); y=mix(190,188,(t-9.8)/2.2); phase='return'; objectX=to;
+      x=mix(to.x,300,(t-9.9)/2.1); y=mix(safeHeight(to.x),142,(t-9.9)/2.1); phase='return';
     }
-    if (holding) { objectX=x; objectY=y+82; }
-    const dx=x-170, dy=y-327, a=165, b=175;
+
+    let count = 0, activeX = from.x, activeY = from.y;
+    objects.forEach((object,i) => {
+      let onTray = reverse ? i <= index : i < index;
+      let position = onTray ? object.destination : object.source;
+      const carried = i === index && holding;
+      if (i === index) {
+        onTray = holding ? false : released ? !reverse : reverse;
+        position = holding ? {x,y:y+offset} : released ? to : from;
+        activeX=position.x; activeY=position.y;
+      }
+      if (onTray) count++;
+      pose(object.node,position.x,position.y);
+      object.node.dataset.location=carried ? 'held' : onTray ? 'tray' : 'pile';
+      object.node.dataset.depth=carried ? 1000 : onTray ? object.destination.y+32 : object.depth;
+      let floorY=onTray ? object.destination.y+17 : 386;
+      if (carried) {
+        const u=smooth((t-4.9)/1.7);
+        floorY=(reverse ? object.destination.y+17 : 386)*(1-u)+(reverse ? 386 : object.destination.y+17)*u;
+      }
+      const elevation=Math.max(0,floorY-position.y-17);
+      object.shadow.setAttribute('cx',number(position.x));
+      object.shadow.setAttribute('cy',number(floorY));
+      object.shadow.setAttribute('rx',number(27+elevation*.055));
+      object.shadow.setAttribute('opacity',number(Math.max(.1,.3-elevation*.001)));
+      object.slot.dataset.occupied=String(onTray);
+      object.slot.setAttribute('opacity',onTray ? '1' : '.6');
+    });
+    // Painter ordering preserves occlusion in the pile and lifts the held
+    // block in front of the bin rim. Reorder only when that ordering changes.
+    const ordered=[...objectLayer.children].sort((a,b)=>Number(a.dataset.depth)-Number(b.dataset.depth));
+    const order=ordered.map(node=>node.id).join(',');
+    if (order !== previousOrder) { objectLayer.append(...ordered); previousOrder=order; }
+
+    const dx=x-130, dy=y-348, a=190, b=230;
     const cosElbow=Math.max(-1,Math.min(1,(dx*dx+dy*dy-a*a-b*b)/(2*a*b)));
     const elbow=Math.acos(cosElbow);
     const shoulder=Math.atan2(dy,dx)-Math.atan2(b*Math.sin(elbow),a+b*Math.cos(elbow));
-    const ex=170+a*Math.cos(shoulder), ey=327+a*Math.sin(shoulder);
-    upperLink.setAttribute('d','M170 327 L'+number(ex)+' '+number(ey));
+    const ex=130+a*Math.cos(shoulder), ey=348+a*Math.sin(shoulder);
+    upperLink.setAttribute('d','M130 348 L'+number(ex)+' '+number(ey));
     forearmLink.setAttribute('d','M'+number(ex)+' '+number(ey)+' L'+number(x)+' '+number(y));
-    elbowNode.setAttribute('transform','translate('+number(ex)+' '+number(ey)+')');
-    handNode.setAttribute('transform','translate('+number(x)+' '+number(y)+')');
-    leftJaw.setAttribute('transform','translate('+number(-gap)+' 0)');
-    rightJaw.setAttribute('transform','translate('+number(gap)+' 0)');
-    objectNode.setAttribute('transform','translate('+number(objectX)+' '+number(objectY)+')');
-    const lift=(350-objectY)/103;
-    shadowNode.setAttribute('cx',number(objectX));
-    shadowNode.setAttribute('rx',number(36+lift*10));
-    shadowNode.setAttribute('opacity',number(.43-lift*.24));
-    scene.dataset.phase=phase;
-    scene.dataset.holding=String(holding);
-    scene.dataset.objectX=number(objectX);
-    scene.dataset.objectY=number(objectY);
-    scene.dataset.wristX=number(x);
-    scene.dataset.wristY=number(y);
-    scene.dataset.jawGap=number(gap);
+    pose(elbowNode,ex,ey); pose(handNode,x,y);
+    pose(leftJaw,-gap,0); pose(rightJaw,gap,0);
+    pose(targetFrame,activeX,activeY);
+    targetFrame.setAttribute('stroke',activeObject.color);
+    targetFrame.querySelector('circle').setAttribute('fill',activeObject.color);
+    targetFrame.setAttribute('opacity',phase==='return' ? '.25' : number(.65+.16*Math.sin(t*2)));
+    targetScan.setAttribute('transform','translate(0 '+number(-27+54*(.5-.5*Math.cos(t*2.5)))+')');
+    targetScan.setAttribute('opacity',phase==='approach' ? '.7' : '0');
+    transferPath.setAttribute('stroke-dashoffset',number(-time*14));
+    transferPath.setAttribute('opacity',phase==='transfer' ? '.55' : '.2');
+    const ripple = (t-8.1)/1.2;
+    placementRipple.setAttribute('cx',to.x); placementRipple.setAttribute('cy',to.y+17);
+    placementRipple.setAttribute('rx',number(31+Math.max(0,ripple)*16));
+    placementRipple.setAttribute('ry',number(12+Math.max(0,ripple)*6));
+    placementRipple.setAttribute('stroke',activeObject.color);
+    placementRipple.setAttribute('opacity',ripple>=0 && ripple<=1 ? number(.65*(1-ripple)) : '0');
+
+    if (move !== previousMove) {
+      const points=Array.from({length:17},(_,i)=>{
+        const u=i/16, px=from.x+(to.x-from.x)*u;
+        return number(px)+' '+number(safeHeight(px)-10*Math.sin(Math.PI*u));
+      });
+      transferPath.setAttribute('d','M'+from.x+' '+(from.y-offset)+' L'+points.join(' L')+' L'+to.x+' '+(to.y-offset));
+      sceneTask.textContent=reverse ? 'Rebuilding the stack' : 'Clearing the stack';
+      previousMove=move;
+    }
+    if (placedCount.dataset.count !== String(count)) {
+      placedCount.textContent=count+' / 3 placed';
+      placedCount.dataset.count=String(count);
+    }
+    Object.assign(scene.dataset,{
+      phase, holding:String(holding), target:activeObject.id,
+      move:String(move), direction:reverse?'restack':'sort', placedCount:String(count),
+      objectX:String(number(activeX)), objectY:String(number(activeY)),
+      wristX:String(number(x)), wristY:String(number(y)), jawGap:String(number(gap))
+    });
     if (phase !== previousPhase) {
-      const active = phase === 'return' ? 'place' : phase;
+      const active = phase === 'return' ? 'place' : phase === 'transfer' ? 'lift' : phase;
       for (const step of sequenceSteps) {
         const on=step.dataset.step===active;
         step.dataset.active=String(on);

@@ -1,84 +1,111 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="grasp-scene" viewBox="0 0 600 520" fill="none" role="img" aria-labelledby="hero-art-title hero-art-description" data-phase="approach" data-holding="false">
-<title id="hero-art-title">A complete robotic pick-and-place sequence</title>
-<desc id="hero-art-description">A two-finger gripper approaches a green block, closes around it, lifts it off the table, transfers it to the next position, and releases it after setting it down. Concept illustration.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" id="grasp-scene" viewBox="0 0 600 560" fill="none" role="img" aria-labelledby="hero-art-title hero-art-description" data-phase="approach" data-holding="false">
+<title id="hero-art-title">Robotic manipulation in a cluttered, stacked scene</title>
+<desc id="hero-art-description">A robot sorts three colored blocks from a stack surrounded by boxes, cylinders, and scattered parts. It identifies the top object, closes its fingers, lifts above the clutter, and releases the object into a separate tray. Objects stay where they are placed. The return sequence rebuilds the stack for a seamless loop. Concept illustration.</desc>
 <defs>
- <linearGradient id="bench-bg" x1="30" y1="20" x2="560" y2="510" gradientUnits="userSpaceOnUse"><stop stop-color="#122735"/><stop offset="1" stop-color="#0c1a28"/></linearGradient>
- <radialGradient id="bench-halo"><stop stop-color="#5baf9f" stop-opacity=".19"/><stop offset="1" stop-color="#112738" stop-opacity="0"/></radialGradient>
- <linearGradient id="bench-top" x1="130" y1="285" x2="480" y2="445" gradientUnits="userSpaceOnUse"><stop stop-color="#223b48"/><stop offset="1" stop-color="#172c38"/></linearGradient>
- <linearGradient id="arm-metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fcffff"/><stop offset=".35" stop-color="#dee9e9"/><stop offset=".72" stop-color="#a7bec2"/><stop offset="1" stop-color="#6c898f"/></linearGradient>
- <linearGradient id="arm-metal-light" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#edf6f5"/><stop offset="1" stop-color="#b2c9ca"/></linearGradient>
- <linearGradient id="block-front" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#59bb9d"/><stop offset="1" stop-color="#86ddbe"/></linearGradient>
- <linearGradient id="block-side" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#448f81"/><stop offset="1" stop-color="#286c64"/></linearGradient>
+ <linearGradient id="bench-bg" x1="50" y1="20" x2="540" y2="550" gradientUnits="userSpaceOnUse"><stop stop-color="#142c3c"/><stop offset=".55" stop-color="#0e1c2d"/><stop offset="1" stop-color="#112939"/></linearGradient>
+ <radialGradient id="bench-halo"><stop stop-color="#4cb7a4" stop-opacity=".2"/><stop offset="1" stop-color="#0c2238" stop-opacity="0"/></radialGradient>
+ <linearGradient id="bench-top" x1="160" y1="280" x2="480" y2="490" gradientUnits="userSpaceOnUse"><stop stop-color="#294450"/><stop offset="1" stop-color="#172b3c"/></linearGradient>
+ <linearGradient id="arm-metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f0fcfc"/><stop offset=".4" stop-color="#d2e3e6"/><stop offset="1" stop-color="#708e9f"/></linearGradient>
+ <linearGradient id="arm-metal-light" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ebf8f6"/><stop offset="1" stop-color="#9cb8c4"/></linearGradient>
+ <linearGradient id="planned-route"><stop stop-color="#a3f3d3"/><stop offset="1" stop-color="#94caff"/></linearGradient>
  <filter id="bench-shadow" x="-50%" y="-100%" width="200%" height="300%"><feGaussianBlur stdDeviation="8"/></filter>
- <filter id="arm-shadow" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="4" dy="7" stdDeviation="4" flood-color="#000813" flood-opacity=".35"/></filter>
- <path id="upper-arm-path" d="M170 327 L165.58 162.059"/>
- <path id="forearm-path" d="M165.58 162.059 L338 192"/>
+ <filter id="arm-shadow" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="3" dy="6" stdDeviation="3" flood-color="#020713" flood-opacity=".45"/></filter>
+ <filter id="scene-glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="3"/></filter>
+ <pattern id="workshop-grid" width="34" height="34" patternUnits="userSpaceOnUse"><path d="M34 0H0V34" stroke="#9ac9d5" stroke-opacity=".08"/></pattern>
+ <clipPath id="worktop-clip"><path d="M55 367 258 277 568 393 362 509Z"/></clipPath>
+ <path id="upper-arm-path" d="M130 348 101 160"/>
+ <path id="forearm-path" d="M101 160 300 142"/>
 </defs>
-<rect x="12" y="12" width="576" height="496" rx="24" fill="url(#bench-bg)" stroke="#35525c"/>
-<ellipse cx="325" cy="242" rx="250" ry="216" fill="url(#bench-halo)"/>
-<g stroke="#598277" opacity=".16">
- <path d="M44 92H556M44 132H556M44 172H556M44 212H556"/>
- <path d="M104 60V280M184 60V280M264 60V280M344 60V280M424 60V280M504 60V280"/>
+<rect x="12" y="12" width="576" height="536" rx="24" fill="url(#bench-bg)" stroke="#375665"/>
+<rect x="30" y="30" width="540" height="480" rx="18" fill="url(#workshop-grid)"/>
+<ellipse cx="324" cy="284" rx="250" ry="218" fill="url(#bench-halo)"/>
+<g stroke="#6e9eb4" opacity=".23"><path d="M47 303 257 211 552 318" stroke-dasharray="3 8"/><path d="M257 211v44M47 303v38M552 318v47"/><path d="M64 108V58h53M484 58h54v50"/></g>
+<g fill="#b4d4e2" opacity=".65"><circle cx="65" cy="75" r="3"/><circle cx="78" cy="75" r="3" opacity=".5"/><circle cx="91" cy="75" r="3" opacity=".3"/></g>
+<!-- Perspective workbench and a separate receiving tray. -->
+<ellipse cx="315" cy="500" rx="230" ry="28" fill="#020913" opacity=".6" filter="url(#bench-shadow)"/>
+<path d="M55 367 362 482 568 393v22L362 531 55 389Z" fill="#122534"/>
+<path d="M55 367 362 509v22L55 389Z" fill="#1a3444"/>
+<path d="M362 509 568 393v22L362 531Z" fill="#244a58"/>
+<path d="M55 367 258 277 568 393 362 509Z" fill="url(#bench-top)" stroke="#64828a" stroke-width="1.3"/>
+<g clip-path="url(#worktop-clip)" stroke="#a4d4da" stroke-width=".7" opacity=".13">
+ <path d="M-140 280l490 184"/><path d="M-95 280l490 184"/><path d="M-50 280l490 184"/><path d="M-5 280l490 184"/><path d="M40 280l490 184"/><path d="M85 280l490 184"/><path d="M130 280l490 184"/><path d="M175 280l490 184"/><path d="M220 280l490 184"/><path d="M265 280l490 184"/><path d="M310 280l490 184"/><path d="M355 280l490 184"/>
+ <path d="M80 270  -360 515"/><path d="M122 270  -318 515"/><path d="M164 270  -276 515"/><path d="M206 270  -234 515"/><path d="M248 270  -192 515"/><path d="M290 270  -150 515"/><path d="M332 270  -108 515"/><path d="M374 270  -66 515"/><path d="M416 270  -24 515"/><path d="M458 270  18 515"/><path d="M500 270  60 515"/><path d="M542 270  102 515"/><path d="M584 270  144 515"/>
 </g>
-<!-- Clean work surface and two placement pads. -->
-<ellipse cx="312" cy="441" rx="223" ry="34" fill="#020a12" opacity=".4" filter="url(#bench-shadow)"/>
-<path d="m70 355 192-83 292 103v22l-194 82-290-102Z" fill="#122835"/>
-<path d="m70 355 290 102v22L70 377Z" fill="#162e3a"/>
-<path d="m360 457 194-82v22l-194 82Z" fill="#21424c"/>
-<path d="m70 355 192-83 292 103-194 82Z" fill="url(#bench-top)" stroke="#45696c" stroke-width="1.3"/>
-<g stroke="#51736e" stroke-width=".8" opacity=".27"><path d="M111.875 345.875 L383.125 445.75"/><path d="M123.75 367.5 L300 294.375"/><path d="M133.75 336.75 L406.25 436.5"/><path d="M157.5 380 L335 306.75"/><path d="M155.625 327.625 L429.375 427.25"/><path d="M191.25 392.5 L370 319.125"/><path d="M177.5 318.5 L452.5 418"/><path d="M225 405 L405 331.5"/><path d="M199.375 309.375 L475.625 408.75"/><path d="M258.75 417.5 L440 343.875"/><path d="M221.25 300.25 L498.75 399.5"/><path d="M292.5 430 L475 356.25"/><path d="M243.125 291.125 L521.875 390.25"/><path d="M326.25 442.5 L510 368.625"/></g>
-<ellipse cx="385" cy="394" rx="44" ry="17" fill="#7de4bd" fill-opacity=".035" stroke="#729e8c" stroke-width="1.3" stroke-dasharray="3 5"/>
-<ellipse cx="455" cy="394" rx="44" ry="17" fill="#94bfff" fill-opacity=".035" stroke="#6c8caa" stroke-width="1.3" stroke-dasharray="3 5"/>
-<ellipse id="object-shadow" cx="385" cy="394" rx="36" ry="11" fill="#020e17" opacity=".43"/>
-<!-- Robot pedestal. -->
-<ellipse cx="170" cy="398" rx="61" ry="20" fill="#040e16" opacity=".4"/>
-<path d="M124 373v17c0 25 92 25 92 0v-17Z" fill="#47616b"/>
-<ellipse cx="170" cy="373" rx="46" ry="18" fill="#839ea5"/>
-<ellipse cx="170" cy="373" rx="37" ry="12" fill="#bdced0"/>
-<path d="M144 335v32c0 18 52 18 52 0v-32Z" fill="url(#arm-metal)"/>
-<ellipse cx="170" cy="335" rx="26" ry="12" fill="#e3eeeb"/>
-<path d="M148 348v17" stroke="#f9fffc" stroke-width="3" opacity=".7"/>
-<!-- The target remains attached to the fingers while being carried. -->
-<g id="grasp-object" transform="translate(385 350)">
- <path d="m-32-18 32-18 32 18-32 18Z" fill="#abefd2" stroke="#b8f9e1" stroke-width=".7"/>
- <path d="m-32-18 32 18v38l-32-18Z" fill="url(#block-front)"/>
- <path d="M0 0 32-18v38L0 38Z" fill="url(#block-side)"/>
- <path d="M-28-15-4-2V31" stroke="#c1f5dc" stroke-opacity=".55" stroke-width="2" stroke-linecap="round"/>
- <path d="M0 0v38" stroke="#9be0c2" stroke-opacity=".45"/>
+<path d="m75 386 276 128" stroke="#82ebcf" stroke-width="1.5" opacity=".4"/>
+<path d="m375 511 175-98" stroke="#7fb4e1" stroke-width="1.5" opacity=".4"/>
+<!-- Low-sided bin makes the depth and partial occlusion of the pile visible. -->
+<path d="m202 365 96-42 108 43-98 51Z" fill="#0e2433" stroke="#52767d"/>
+<path d="M202 365v-18l96-42 108 43v18l-108-43Z" fill="#294350" stroke="#6a8590" stroke-opacity=".6"/>
+<path d="m210 357 88-39 98 38" stroke="#a6e7db" stroke-opacity=".4"/>
+<path d="M373 406 469 364 557 397 461 449v8l-88-43Z" fill="#1b3344" stroke="#5c8398"/>
+<path d="m373 406 96-42 88 33-96 52Z" fill="#152c3e" stroke="#7ca9bd"/>
+<path d="m384 405 85-35 76 28-84 44Z" stroke="#7dbad4" stroke-opacity=".25"/>
+<g id="slot-mint" class="placement-slot"><path d="m417 369 32-16 32 16-32 16Z" fill="#a3f3d3" fill-opacity=".045" stroke="#a3f3d3" stroke-opacity=".4" stroke-dasharray="3 4"/><circle cx="449" cy="389" r="2.6" fill="#a3f3d3" opacity=".55"/></g>
+<g id="slot-blue" class="placement-slot"><path d="m473 399 32-16 32 16-32 16Z" fill="#bddbff" fill-opacity=".045" stroke="#bddbff" stroke-opacity=".4" stroke-dasharray="3 4"/><circle cx="505" cy="419" r="2.6" fill="#bddbff" opacity=".55"/></g>
+<g id="slot-coral" class="placement-slot"><path d="m417 428 32-16 32 16-32 16Z" fill="#ffc9ad" fill-opacity=".045" stroke="#ffc9ad" stroke-opacity=".4" stroke-dasharray="3 4"/><circle cx="449" cy="448" r="2.6" fill="#ffc9ad" opacity=".55"/></g>
+<g id="object-shadows"><ellipse id="shadow-mint" cx="300" cy="386" rx="27" ry="10" fill="#020a13" opacity=".3"/>
+<ellipse id="shadow-blue" cx="295" cy="386" rx="27" ry="10" fill="#020a13" opacity=".3"/>
+<ellipse id="shadow-coral" cx="299" cy="386" rx="27" ry="10" fill="#020a13" opacity=".3"/></g>
+<ellipse id="placement-ripple" cx="449" cy="374" rx="29" ry="12" stroke="#b9f6dd" stroke-width="2" opacity="0"/>
+<!-- Robot base and cabling. -->
+<path d="M116 391C91 419 62 405 74 384" stroke="#071422" stroke-width="9"/><path d="M116 391C91 419 62 405 74 384" stroke="#486476" stroke-width="3"/>
+<ellipse cx="130" cy="408" rx="58" ry="20" fill="#020a12" opacity=".55"/>
+<path d="M84 383v17c0 23 92 23 92 0v-17Z" fill="#405c6c"/>
+<ellipse cx="130" cy="383" rx="46" ry="18" fill="#8aa8b4"/>
+<ellipse cx="130" cy="383" rx="35" ry="12" fill="#c7d9db"/>
+<path d="M104 347v31c0 17 52 17 52 0v-31Z" fill="url(#arm-metal)"/>
+<ellipse cx="130" cy="347" rx="26" ry="12" fill="#dfece9"/>
+<path d="M108 358v17" stroke="#f1ffff" stroke-width="3" opacity=".7"/>
+<path d="M88 396c14 10 68 10 84 0" stroke="#92eacb" stroke-width="2" opacity=".8"/>
+<!-- Objects are depth sorted; a held object rises above its occluders. -->
+<g id="scene-objects">
+<g id="clutter-box-0" data-depth="366" transform="translate(257 333) rotate(-9) scale(0.98)"><path d="m-26-15 26-15 26 15-26 15Z" fill="#9295b3" stroke="#eefcff" stroke-opacity=".3" stroke-width=".7"/><path d="m-26-15 26 15v32l-26-15Z" fill="#666e8c"/><path d="M0 0 26-15v32L0 32Z" fill="#444b69"/><path d="M-22-12-4-2V25" stroke="#efffff" stroke-opacity=".3" stroke-width="1.4" stroke-linecap="round"/><path d="M0 0v32" stroke="#e1f5f3" stroke-opacity=".25"/></g>
+<g id="clutter-box-1" data-depth="361" transform="translate(343 327) rotate(10) scale(0.9)"><path d="m-26-15 26-15 26 15-26 15Z" fill="#e2b78b" stroke="#eefcff" stroke-opacity=".3" stroke-width=".7"/><path d="m-26-15 26 15v32l-26-15Z" fill="#ac7957"/><path d="M0 0 26-15v32L0 32Z" fill="#795741"/><path d="M-22-12-4-2V25" stroke="#efffff" stroke-opacity=".3" stroke-width="1.4" stroke-linecap="round"/><path d="M0 0v32" stroke="#e1f5f3" stroke-opacity=".25"/></g>
+<g id="clutter-box-2" data-depth="381" transform="translate(385 355) rotate(13) scale(0.8)"><path d="m-26-15 26-15 26 15-26 15Z" fill="#a3b5c6" stroke="#eefcff" stroke-opacity=".3" stroke-width=".7"/><path d="m-26-15 26 15v32l-26-15Z" fill="#6d879e"/><path d="M0 0 26-15v32L0 32Z" fill="#435d73"/><path d="M-22-12-4-2V25" stroke="#efffff" stroke-opacity=".3" stroke-width="1.4" stroke-linecap="round"/><path d="M0 0v32" stroke="#e1f5f3" stroke-opacity=".25"/></g>
+<g id="clutter-box-3" data-depth="385" transform="translate(225 361) rotate(-14) scale(0.71)"><path d="m-26-15 26-15 26 15-26 15Z" fill="#7fadaa" stroke="#eefcff" stroke-opacity=".3" stroke-width=".7"/><path d="m-26-15 26 15v32l-26-15Z" fill="#53847f"/><path d="M0 0 26-15v32L0 32Z" fill="#355d5b"/><path d="M-22-12-4-2V25" stroke="#efffff" stroke-opacity=".3" stroke-width="1.4" stroke-linecap="round"/><path d="M0 0v32" stroke="#e1f5f3" stroke-opacity=".25"/></g>
+<g id="clutter-box-4" data-depth="423" transform="translate(370 388) rotate(-7) scale(1.1)"><path d="m-26-15 26-15 26 15-26 15Z" fill="#8d9fac" stroke="#eefcff" stroke-opacity=".3" stroke-width=".7"/><path d="m-26-15 26 15v32l-26-15Z" fill="#536d7e"/><path d="M0 0 26-15v32L0 32Z" fill="#354d61"/><path d="M-22-12-4-2V25" stroke="#efffff" stroke-opacity=".3" stroke-width="1.4" stroke-linecap="round"/><path d="M0 0v32" stroke="#e1f5f3" stroke-opacity=".25"/></g>
+<g id="clutter-box-5" data-depth="420" transform="translate(251 398) rotate(16) scale(0.64)"><path d="m-26-15 26-15 26 15-26 15Z" fill="#d1b599" stroke="#eefcff" stroke-opacity=".3" stroke-width=".7"/><path d="m-26-15 26 15v32l-26-15Z" fill="#a68666"/><path d="M0 0 26-15v32L0 32Z" fill="#6a5c4b"/><path d="M-22-12-4-2V25" stroke="#efffff" stroke-opacity=".3" stroke-width="1.4" stroke-linecap="round"/><path d="M0 0v32" stroke="#e1f5f3" stroke-opacity=".25"/></g>
+<g id="clutter-box-6" data-depth="422" transform="translate(335 403) rotate(-17) scale(0.54)"><path d="m-26-15 26-15 26 15-26 15Z" fill="#c0b8d9" stroke="#eefcff" stroke-opacity=".3" stroke-width=".7"/><path d="m-26-15 26 15v32l-26-15Z" fill="#867ca7"/><path d="M0 0 26-15v32L0 32Z" fill="#55496e"/><path d="M-22-12-4-2V25" stroke="#efffff" stroke-opacity=".3" stroke-width="1.4" stroke-linecap="round"/><path d="M0 0v32" stroke="#e1f5f3" stroke-opacity=".25"/></g>
+<g id="clutter-box-7" data-depth="344" transform="translate(264 312) rotate(8) scale(0.52)"><path d="m-26-15 26-15 26 15-26 15Z" fill="#d4c2a3" stroke="#eefcff" stroke-opacity=".3" stroke-width=".7"/><path d="m-26-15 26 15v32l-26-15Z" fill="#9c8a6c"/><path d="M0 0 26-15v32L0 32Z" fill="#6a6656"/><path d="M-22-12-4-2V25" stroke="#efffff" stroke-opacity=".3" stroke-width="1.4" stroke-linecap="round"/><path d="M0 0v32" stroke="#e1f5f3" stroke-opacity=".25"/></g>
+<g id="clutter-can-back" data-depth="345" transform="translate(311 332) rotate(0)"><ellipse cy="13" rx="19" ry="6.4" fill="#030e18" opacity=".4"/><path d="M-16 -48v48c0 16 32 16 32 0v-48Z" fill="#576987"/><ellipse cy="-48" rx="16" ry="6.4" fill="#9faecc" stroke="#e4f3ff" stroke-opacity=".2"/><ellipse cy="-48" rx="10.4" ry="4" fill="none" stroke="#0d2139" stroke-opacity=".4" stroke-width="2"/><path d="M-11 -43v42" stroke="#eafcff" stroke-opacity=".23" stroke-width="2"/></g>
+<g id="clutter-can-left" data-depth="408" transform="translate(238 391) rotate(-11)"><ellipse cy="13" rx="23" ry="8" fill="#030e18" opacity=".4"/><path d="M-20 -31v31c0 20 40 20 40 0v-31Z" fill="#98694f"/><ellipse cy="-31" rx="20" ry="8" fill="#d1a88a" stroke="#e4f3ff" stroke-opacity=".2"/><ellipse cy="-31" rx="13" ry="5" fill="none" stroke="#0d2139" stroke-opacity=".4" stroke-width="2"/><path d="M-15 -26v25" stroke="#eafcff" stroke-opacity=".23" stroke-width="2"/></g>
+<g id="clutter-can-right" data-depth="366" transform="translate(367 353) rotate(9)"><ellipse cy="13" rx="22" ry="7.6000000000000005" fill="#030e18" opacity=".4"/><path d="M-19 -45v45c0 19 38 19 38 0v-45Z" fill="#6e806f"/><ellipse cy="-45" rx="19" ry="7.6000000000000005" fill="#b7baa2" stroke="#e4f3ff" stroke-opacity=".2"/><ellipse cy="-45" rx="12.35" ry="4.75" fill="none" stroke="#0d2139" stroke-opacity=".4" stroke-width="2"/><path d="M-14 -40v39" stroke="#eafcff" stroke-opacity=".23" stroke-width="2"/></g>
+<g id="clutter-can-small" data-depth="396" transform="translate(400 384) rotate(-14)"><ellipse cy="13" rx="15" ry="4.800000000000001" fill="#030e18" opacity=".4"/><path d="M-12 -20v20c0 12 24 12 24 0v-20Z" fill="#5f7599"/><ellipse cy="-20" rx="12" ry="4.800000000000001" fill="#a9b7cb" stroke="#e4f3ff" stroke-opacity=".2"/><ellipse cy="-20" rx="7.800000000000001" ry="3" fill="none" stroke="#0d2139" stroke-opacity=".4" stroke-width="2"/><path d="M-7 -15v14" stroke="#eafcff" stroke-opacity=".23" stroke-width="2"/></g>
+<g id="clutter-ring" data-depth="430" transform="translate(312 416) rotate(-18)"><ellipse rx="15" ry="8" stroke="#566e8a" stroke-width="7"/><ellipse cy="-2" rx="15" ry="8" stroke="#a9bfd1" stroke-width="5"/></g>
+<g id="clutter-parts" data-depth="438"><path d="m273 418 17 6 12-5-17-7Z" fill="#b3b9bd"/><path d="m273 418v6l17 6v-6m0 6 12-5v-6" fill="#6f8193"/><path d="m352 420 20 7" stroke="#b99d82" stroke-width="8" stroke-linecap="round"/></g>
+<g id="object-mint" class="movable-object" data-source-x="300" data-source-y="299" data-place-x="449" data-place-y="351" data-color="#a3f3d3" data-depth="399" transform="translate(300 299)"><path d="m-26-15 26-15 26 15-26 15Z" fill="#a3f3d3" stroke="#eefcff" stroke-opacity=".3" stroke-width=".7"/><path d="m-26-15 26 15v32l-26-15Z" fill="#54bb9f"/><path d="M0 0 26-15v32L0 32Z" fill="#287e75"/><path d="M-22-12-4-2V25" stroke="#efffff" stroke-opacity=".3" stroke-width="1.4" stroke-linecap="round"/><path d="M0 0v32" stroke="#e1f5f3" stroke-opacity=".25"/><path d="m-9-15 9-5 9 5-9 5Z" fill="none" stroke="#f0fff8" stroke-opacity=".65" stroke-width="1.5"/></g>
+<g id="object-blue" class="movable-object" data-source-x="295" data-source-y="331" data-place-x="505" data-place-y="381" data-color="#bddbff" data-depth="398" transform="translate(295 331)"><path d="m-26-15 26-15 26 15-26 15Z" fill="#bddbff" stroke="#eefcff" stroke-opacity=".3" stroke-width=".7"/><path d="m-26-15 26 15v32l-26-15Z" fill="#79a3dd"/><path d="M0 0 26-15v32L0 32Z" fill="#3e628f"/><path d="M-22-12-4-2V25" stroke="#efffff" stroke-opacity=".3" stroke-width="1.4" stroke-linecap="round"/><path d="M0 0v32" stroke="#e1f5f3" stroke-opacity=".25"/><path d="m-9-15 9-5 9 5-9 5Z" fill="none" stroke="#f0fff8" stroke-opacity=".65" stroke-width="1.5"/></g>
+<g id="object-coral" class="movable-object" data-source-x="299" data-source-y="363" data-place-x="449" data-place-y="410" data-color="#ffc9ad" data-depth="397" transform="translate(299 363)"><path d="m-26-15 26-15 26 15-26 15Z" fill="#ffc9ad" stroke="#eefcff" stroke-opacity=".3" stroke-width=".7"/><path d="m-26-15 26 15v32l-26-15Z" fill="#d58c6d"/><path d="M0 0 26-15v32L0 32Z" fill="#925e50"/><path d="M-22-12-4-2V25" stroke="#efffff" stroke-opacity=".3" stroke-width="1.4" stroke-linecap="round"/><path d="M0 0v32" stroke="#e1f5f3" stroke-opacity=".25"/><path d="m-9-15 9-5 9 5-9 5Z" fill="none" stroke="#f0fff8" stroke-opacity=".65" stroke-width="1.5"/></g>
+<g id="bin-front" data-depth="435"><path d="m202 365 106 42 98-41v14l-98 51-106-48Z" fill="#37515f" fill-opacity=".68" stroke="#7a9aa2" stroke-opacity=".55"/><path d="m202 365 106 42 98-41" stroke="#acc9ca" stroke-opacity=".8" stroke-width="1.5"/><path d="m218 382 23 9m10 4 23 9m50 8 22-11" stroke="#93dbcd" stroke-opacity=".45" stroke-width="2"/></g>
 </g>
-<!-- Continuous joints are solved from the wrist pose every frame. -->
+<!-- Planning and target cues use the same clock as the physical motion. -->
+<path id="transfer-path" d="M300 229V140H449V281" stroke="url(#planned-route)" stroke-width="1.6" stroke-dasharray="4 7" opacity=".35"/>
+<g id="target-frame" transform="translate(300 299)" stroke="#b8ffe2" stroke-width="1.7">
+ <path d="M-37-23v-16h16M21-39h16v16M37 23v17H21M-21 40h-16V23"/>
+ <path id="target-scan" d="M-28 0H28" stroke-width="1" opacity=".8"/>
+ <circle cx="0" cy="-46" r="2.5" fill="#b8ffe2" stroke="none"/>
+</g>
 <g id="robot-links" stroke-linecap="round" stroke-linejoin="round" filter="url(#arm-shadow)">
- <use href="#upper-arm-path" stroke="#68828b" stroke-width="38"/>
- <use href="#upper-arm-path" stroke="url(#arm-metal)" stroke-width="32"/>
- <use href="#upper-arm-path" stroke="#f8ffff" stroke-opacity=".6" stroke-width="5" transform="translate(-5 -3)"/>
- <circle cx="170" cy="327" r="26" fill="#2b424c" stroke="#9bb3b7" stroke-width="3"/>
- <circle cx="170" cy="327" r="15" fill="#617b82"/>
- <circle cx="170" cy="327" r="7" fill="#addbcf"/>
- <use href="#forearm-path" stroke="#5e7982" stroke-width="32"/>
- <use href="#forearm-path" stroke="url(#arm-metal-light)" stroke-width="26"/>
- <use href="#forearm-path" stroke="#f7fffc" stroke-opacity=".8" stroke-width="4" transform="translate(-3 -3)"/>
- <g id="robot-elbow" transform="translate(165.58 162.059)">
-  <circle r="25" fill="#344e58" stroke="#b5cece" stroke-width="3"/>
-  <circle r="15" fill="#7e9ba0"/><circle r="7" fill="#d6efe7"/>
-  <circle r="19" stroke="#a8d9d0" stroke-opacity=".4" stroke-width="1"/>
- </g>
+ <use href="#upper-arm-path" stroke="#587485" stroke-width="38"/>
+ <use href="#upper-arm-path" stroke="url(#arm-metal)" stroke-width="31"/>
+ <use href="#upper-arm-path" stroke="#f4ffff" stroke-opacity=".65" stroke-width="4" transform="translate(-5 -2)"/>
+ <circle cx="130" cy="348" r="26" fill="#263f52" stroke="#a6c2ca" stroke-width="3"/>
+ <circle cx="130" cy="348" r="16" fill="#597b8d"/>
+ <circle cx="130" cy="348" r="8" fill="#a3dfd1"/>
+ <use href="#forearm-path" stroke="#547484" stroke-width="32"/>
+ <use href="#forearm-path" stroke="url(#arm-metal-light)" stroke-width="25"/>
+ <use href="#forearm-path" stroke="#f3ffff" stroke-opacity=".65" stroke-width="3" transform="translate(-3 -3)"/>
+ <g id="robot-elbow" transform="translate(101 160)"><circle r="25" fill="#233f51" stroke="#bfd4d9" stroke-width="3"/><circle r="16" fill="#678b9d"/><circle r="8" fill="#c8eee5"/><path d="M-17-11a20 20 0 0 1 32 0" stroke="#97f1d4" stroke-width="2"/></g>
 </g>
-<g id="robot-gripper" transform="translate(338 192)">
- <circle r="19" fill="#3c5963" stroke="#bacfce" stroke-width="3"/>
- <circle r="9" fill="#b7d0d0"/>
- <path d="M-25 9h50v17h-50Z" fill="#abc4c5"/>
- <rect x="-51" y="18" width="102" height="20" rx="6" fill="#4c6872" stroke="#a0bec0"/>
- <path d="M-44 22h88" stroke="#d8ece8" stroke-width="2"/>
- <rect x="-10" y="25" width="20" height="5" rx="2.5" fill="#9cf1cc"/>
- <g id="left-jaw" transform="translate(-49 0)">
-  <path d="M-9 35H3v9H0v52H-8V44H-9Z" fill="#bdd0cf" stroke="#e3efea" stroke-width=".6"/>
-  <rect x="0" y="66" width="4" height="30" rx="1.5" fill="#34565a"/>
- </g>
- <g id="right-jaw" transform="translate(49 0)">
-  <path d="M-3 35H9v9H8v52H0V44H-3Z" fill="#a6bfc1" stroke="#d9e8e7" stroke-width=".6"/>
-  <rect x="-4" y="66" width="4" height="30" rx="1.5" fill="#34565a"/>
- </g>
+<g id="robot-gripper" transform="translate(300 142)">
+ <circle r="18" fill="#304d63" stroke="#bacfd8" stroke-width="3"/>
+ <circle r="8" fill="#a3cbd2"/>
+ <path d="M-22 9h44v16h-44Z" fill="#acc9d0"/>
+ <rect x="-47" y="18" width="94" height="17" rx="5" fill="#3b5b6e" stroke="#a0c0cb"/>
+ <path d="M-40 22h80" stroke="#d8eeed" stroke-width="1.6"/>
+ <rect x="-10" y="26" width="20" height="4" rx="2" fill="#a7f1d3"/>
+ <g id="left-jaw" transform="translate(-45 0)"><path d="M-8 33H3v9H0v43H-8Z" fill="#c1d5d9" stroke="#e5f4f3" stroke-width=".6"/><rect x="0" y="55" width="4" height="26" rx="1.3" fill="#2c535f"/></g>
+ <g id="right-jaw" transform="translate(45 0)"><path d="M-3 33H8v52H0V42H-3Z" fill="#9dbecb" stroke="#e2f1f4" stroke-width=".6"/><rect x="-4" y="55" width="4" height="26" rx="1.3" fill="#2c535f"/></g>
 </g>
-<!-- Subtle workshop details. -->
-<path d="M42 469v14h14m488 0h14v-14M42 51V37h14m488 0h14v14" stroke="#73968f" stroke-width="1.4" opacity=".55"/>
+<path d="M42 501v17h17m482 0h17v-17M42 59V42h17m482 0h17v17" stroke="#8ab2ba" stroke-width="1.3" opacity=".65"/>
 </svg>

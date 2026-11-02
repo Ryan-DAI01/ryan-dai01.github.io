@@ -65,7 +65,7 @@ Paper figures are stored locally without changing their content. Click a paper f
 
 ## Motion and readability
 
-The dark navy and mint interface uses 20–22 px introduction text, 18 px author names, and at least 16 px metadata. The hero uses a two-link arm with inverse kinematics and a synchronized approach, close, lift, transfer, place, and release sequence. The object follows the gripper only while held and remains on the table after release. A lightweight point network provides the background. Cards enter as visitors scroll, and the header shows reading progress.
+The dark navy and mint interface uses 20–22 px introduction text, 18 px author names, and at least 16 px metadata. The hero shows a cluttered bin with stacked blocks, cylinders, and scattered parts next to a separate placement tray. A two-link arm uses inverse kinematics to select and grasp three blocks from top to bottom, lift above the clutter, transfer, set down, and release. Each block follows the closed gripper only while held and remains in the tray after release. The reverse sequence restacks the blocks from bottom to top, so the 72-second loop has no teleporting resets. Depth ordering, target scanning, the transfer path, and placement ripples share the robot clock and stop with Pause motion. A lightweight point network provides the background. Cards enter as visitors scroll, and the header shows reading progress.
 
 The Pause motion control stops animation and remembers the preference in localStorage on that browser. A reduced-motion system preference starts the site paused; visitors may explicitly enable it. The canvas stops rendering when the hero is offscreen or the tab is hidden. All content remains available without JavaScript.
 

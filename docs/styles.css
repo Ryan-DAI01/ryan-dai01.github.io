@@ -324,3 +324,11 @@ html[data-motion="paused"] .grasp-steps li{transition:none}
  .contact-secondary>span{width:100%}.email-link{font-size:19px}
  .site-footer{font-size:16px}.site-footer>span:nth-child(2){line-height:1.8}
 }
+
+/* Clutter sorting: large status text stays outside the scalable illustration. */
+.scene-status{display:flex;align-items:center;justify-content:space-between;gap:8px 16px;flex-wrap:wrap;padding:13px 14px;margin:2px 12px 14px;border:1px solid #365666;border-radius:10px;background:linear-gradient(110deg,#152f38,#16283b);font-size:17px;line-height:1.5;color:#d1e4ec}
+.scene-task{display:flex;align-items:center;gap:9px}
+.scene-task::before{content:"";width:7px;height:7px;flex-shrink:0;border-radius:50%;background:#9de9ce;box-shadow:0 0 12px #a4efd16b}
+#placed-count{font-variant-numeric:tabular-nums;color:#a7dccc;white-space:nowrap}
+#transfer-path{stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:520px){.scene-status{font-size:16px;margin-inline:4px;padding:10px;gap:6px 12px}.scene-task{gap:7px}}
