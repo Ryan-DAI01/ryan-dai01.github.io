@@ -15,35 +15,34 @@
       sections = [{key:'cited', label:'Citations', papers:[...records].sort(byCitations)}];
       orderHint.textContent = 'Ordered by citation count, highest first.';
     } else {
-      sections = [
-        {key:'first', label:'First author', papers:records.filter(p => p.first).sort(byCitations)},
-        {key:'coauthored', label:'Coauthored', papers:records.filter(p => !p.first).sort(byCitations)}
-      ];
-      orderHint.textContent = 'First-author work first; papers in each group are ordered by citation count.';
+      sections = [{key:'selected', label:'', papers:records}];
+      orderHint.textContent = '';
     }
+    orderHint.hidden = sort.value === 'featured';
     const fragment = document.createDocumentFragment();
     for (const group of sections) {
-      const section = document.createElement('section');
-      section.className = 'publication-group';
-      const heading = document.createElement('h3');
-      heading.id = 'publication-group-' + group.key;
-      heading.textContent = group.label;
-      section.setAttribute('aria-labelledby', heading.id);
+      const section = document.createElement(group.label ? 'section' : 'div');
+      section.className = 'publication-group' + (group.label ? '' : ' publication-group-flat');
+      if (group.label) {
+        const heading = document.createElement('h3');
+        heading.id = 'publication-group-' + group.key;
+        heading.textContent = group.label;
+        section.setAttribute('aria-labelledby', heading.id);
+        section.appendChild(heading);
+      }
       const list = document.createElement('div');
       for (const p of group.papers) list.appendChild(rowById.get(p.id));
-      section.append(heading, list);
+      section.appendChild(list);
       fragment.appendChild(section);
     }
     document.getElementById('publication-list').replaceChildren(fragment);
   }
 
-  const tabs = [...document.querySelectorAll('[data-filter]')];
   const search = document.getElementById('publication-search');
   const year = document.getElementById('year-filter');
   const sort = document.getElementById('publication-sort');
   const orderHint = document.getElementById('order-hint');
   const count = document.getElementById('result-count');
-  let authorship = 'all';
   document.getElementById('filters').hidden = false;
   document.getElementById('copy-email').hidden = false;
   document.querySelectorAll('.cite-button').forEach(b => { b.hidden = false; });
@@ -53,7 +52,7 @@
     for (const row of rows) {
       const p = byId.get(row.dataset.id);
       const haystack = [p.title, p.authors, p.displayAuthors || '', p.venue, p.short, p.year, 'Yixiang Dai'].join(' ').toLocaleLowerCase();
-      const matches = (authorship === 'all' || p.first) && (year.value === 'all' || String(p.year) === year.value) && haystack.includes(query);
+      const matches = (year.value === 'all' || String(p.year) === year.value) && haystack.includes(query);
       row.hidden = !matches;
       if (matches) visible++;
     }
@@ -61,18 +60,34 @@
     count.textContent = visible === records.length ? visible + ' publications' : visible + ' of ' + records.length + ' publications';
     document.getElementById('empty-state').hidden = visible > 0;
   }
-  tabs.forEach(tab => tab.addEventListener('click', () => {
-    authorship = tab.dataset.filter;
-    tabs.forEach(t => { const on = t === tab; t.classList.toggle('active', on); t.setAttribute('aria-pressed', String(on)); });
-    filter();
-  }));
   search.addEventListener('input', filter);
   year.addEventListener('change', filter);
   sort.addEventListener('change', () => { renderOrder(); filter(); });
   document.getElementById('filters').addEventListener('submit', e => e.preventDefault());
   document.getElementById('reset-filters').addEventListener('click', () => {
-    search.value = ''; year.value = 'all'; sort.value = 'featured'; renderOrder(); tabs[0].click(); search.focus();
+    search.value = ''; year.value = 'all'; sort.value = 'featured'; renderOrder(); filter(); search.focus();
   });
+  const figureDialog = document.getElementById('figure-dialog');
+  document.querySelectorAll('[data-figure]').forEach(link => link.addEventListener('click', event => {
+    // Preserve open-in-new-tab gestures and the plain image link without JavaScript.
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    const source = link.querySelector('img');
+    const expanded = document.getElementById('figure-image');
+    expanded.src = source.src;
+    expanded.alt = source.alt;
+    document.getElementById('figure-title').textContent = link.dataset.figure;
+    document.getElementById('figure-caption').textContent = link.dataset.caption;
+    figureDialog.showModal();
+    document.getElementById('close-figure').focus();
+  }));
+  document.getElementById('close-figure').addEventListener('click', () => figureDialog.close());
+  figureDialog.addEventListener('click', event => {
+    if (event.target !== figureDialog) return;
+    const rect = figureDialog.getBoundingClientRect();
+    if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) figureDialog.close();
+  });
+
   const dialog = document.getElementById('citation-dialog');
   const citationText = document.getElementById('citation-text');
   const copyStatus = document.getElementById('copy-status');

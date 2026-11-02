@@ -31,13 +31,13 @@ Open http://127.0.0.1:4173.
 
 ## Content
 
-- Three selected first-author works and the supplied 12-publication bibliography.
-- Search, year and authorship filters, and formatted citation copying.
+- Three selected research projects with original paper figures and the supplied 12-publication bibliography.
+- Search and year filters, publication ordering, and formatted citation copying.
 - Google Scholar and email links.
-- Responsive layouts and original conceptual SVG illustrations.
+- Responsive layouts, expandable paper figures, and an original conceptual robot illustration.
 - No login, analytics, remote fonts, forms, or server-side data collection.
 
-Publication metadata follows the supplied Google Scholar snapshot. Citation counts are dated November 2026 and are not live. The conceptual illustrations are not experimental results.
+Publication metadata follows the supplied Google Scholar snapshot. Citation counts are dated November 2026 and are not live. The hero is a concept illustration; research thumbnails are original figures with sources listed below.
 
 Research description sources:
 - https://chenthree.github.io/publication/2025-08-13-APeG
@@ -48,8 +48,16 @@ https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-gi
 
 ## Publication order and search visibility
 
-The default bibliography shows first-author papers first, with each group ordered by the supplied citation counts. Visitors can also sort by year or citations. The built HTML contains all 12 papers without requiring JavaScript.
+The order of records in publications.json is the default bibliography order: APeG, Visual Geometric, Uncertainty, and E3GNet lead, followed by related work; Charging Patterns is last. The equalContribution array marks Kaiqin Yang and Yixiang Dai in E3GNet, as confirmed in the paper. Visitors can also sort by year or citations. The built HTML contains all 12 papers without requiring JavaScript.
 
 The homepage identifies Yixiang Dai using a consistent title, site name, and WebSite/Person/ProfilePage structured data. robots.txt permits crawling, and sitemap.xml includes the canonical homepage URL and its update date.
 
 To request Google indexing, verify the URL-prefix property https://ryan-dai01.github.io/ in Google Search Console, submit sitemap.xml, and use URL Inspection to request indexing. Verification and indexing requests require the owner’s Google account. Crawling, indexing, and ranking are controlled by Google; these settings do not guarantee placement for a name search. Add the homepage URL to the public Google Scholar and GitHub profiles when possible.
+
+## Figure sources
+
+- APeG framework: https://raw.githubusercontent.com/THU-VCLab/APeG/master/images/Framework.png
+- E3GNet, Figure 1: https://arxiv.org/html/2410.22980v3/images/framework.png
+- GAP-RL, Figure 1: https://arxiv.org/pdf/2410.03509v1 (Figure 1, extracted at 300 dpi)
+
+The research images are stored locally; the GAP-RL figure is extracted from the paper PDF without changing its content. Click a research figure to open it at a larger size. Without JavaScript, its link opens the original image directly.

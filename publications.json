@@ -1,5 +1,16 @@
 [
   {
+    "id": "apeg",
+    "title": "Active-perceptive language-oriented grasp policy for heavily cluttered scenes",
+    "authors": "Y Dai, S Chen, K Yang, D Hu, P Xie, G Li, Y Shen, G Wang",
+    "venue": "IEEE Robotics and Automation Letters",
+    "short": "RA-L",
+    "year": 2025,
+    "citations": 7,
+    "url": "https://ieeexplore.ieee.org/document/11146494/",
+    "code": "https://github.com/THU-VCLab/APeG"
+  },
+  {
     "id": "visual-geometric",
     "title": "Visual Geometric 6-DoF Grasping: A Multi-View Framework with Sparse RGB Observations",
     "authors": "Y Dai, K Yang, H Zhu, R Li, Y Zhao, X Feng, H Ma, S Chen, G Wang",
@@ -7,8 +18,32 @@
     "short": "ISCAS",
     "year": 2026,
     "citations": 1,
-    "first": true,
     "url": "https://doi.org/10.1109/ISCAS66217.2026.11562096"
+  },
+  {
+    "id": "laser-stripe",
+    "title": "Uncertainty-aware laser stripe segmentation with nonlocal mechanisms for welding robots",
+    "authors": "Y Dai, S Chen, T Sun, Z Fan, C Zhang, X Feng, G Wang",
+    "venue": "IEEE Transactions on Instrumentation and Measurement 74, 1–12",
+    "short": "TIM",
+    "year": 2025,
+    "citations": 12,
+    "url": "https://ieeexplore.ieee.org/document/10909245",
+    "code": "https://github.com/Ryan-DAI01/UNLS-Net"
+  },
+  {
+    "id": "edge-grasp",
+    "title": "Efficient end-to-end 6-dof grasp detection framework for edge devices with hierarchical heatmaps and feature propagation",
+    "authors": "K Yang, Y Dai, G Wang, S Chen",
+    "venue": "2025 IEEE International Symposium on Circuits and Systems (ISCAS), 1–5",
+    "short": "ISCAS",
+    "year": 2025,
+    "citations": 4,
+    "url": "https://arxiv.org/abs/2410.22980",
+    "equalContribution": [
+      "K Yang",
+      "Y Dai"
+    ]
   },
   {
     "id": "joyai",
@@ -19,75 +54,7 @@
     "short": "arXiv",
     "year": 2026,
     "citations": 11,
-    "first": false,
     "url": "https://arxiv.org/abs/2604.20100"
-  },
-  {
-    "id": "watersplat",
-    "title": "WaterSplat-SLAM: Photorealistic Monocular SLAM in Underwater Environment",
-    "authors": "K Wang, S Zou, C Jiang, Y Dai, S Chen, S Shen, G Wang",
-    "venue": "IEEE Robotics and Automation Letters",
-    "short": "RA-L",
-    "year": 2026,
-    "citations": 4,
-    "first": false,
-    "url": "https://arxiv.org/abs/2604.04642",
-    "code": "https://github.com/THU-VCLab/WaterSplat-SLAM"
-  },
-  {
-    "id": "mg-grasp",
-    "title": "MG-Grasp: Metric-Scale Geometric 6-DoF Grasping Framework with Sparse RGB Observations",
-    "authors": "K Wang, S Chen, C Jiang, S Shen, Y Dai, G Wang",
-    "venue": "arXiv preprint arXiv:2603.16270",
-    "short": "arXiv",
-    "year": 2026,
-    "citations": 2,
-    "first": false,
-    "url": "https://arxiv.org/abs/2603.16270"
-  },
-  {
-    "id": "apeg",
-    "title": "Active-perceptive language-oriented grasp policy for heavily cluttered scenes",
-    "authors": "Y Dai, S Chen, K Yang, D Hu, P Xie, G Li, Y Shen, G Wang",
-    "venue": "IEEE Robotics and Automation Letters",
-    "short": "RA-L",
-    "year": 2025,
-    "citations": 7,
-    "first": true,
-    "url": "https://ieeexplore.ieee.org/document/11146494/"
-  },
-  {
-    "id": "laser-stripe",
-    "title": "Uncertainty-aware laser stripe segmentation with nonlocal mechanisms for welding robots",
-    "authors": "Y Dai, S Chen, T Sun, Z Fan, C Zhang, X Feng, G Wang",
-    "venue": "IEEE Transactions on Instrumentation and Measurement 74, 1–12",
-    "short": "TIM",
-    "year": 2025,
-    "citations": 12,
-    "first": true,
-    "url": "https://ieeexplore.ieee.org/document/10909245"
-  },
-  {
-    "id": "edge-grasp",
-    "title": "Efficient end-to-end 6-dof grasp detection framework for edge devices with hierarchical heatmaps and feature propagation",
-    "authors": "K Yang, Y Dai, G Wang, S Chen",
-    "venue": "2025 IEEE International Symposium on Circuits and Systems (ISCAS), 1–5",
-    "short": "ISCAS",
-    "year": 2025,
-    "citations": 4,
-    "first": false,
-    "url": "https://arxiv.org/abs/2410.22980"
-  },
-  {
-    "id": "ditr",
-    "title": "Diffusion-based depth inpainting for transparent and reflective objects",
-    "authors": "T Sun, D Hu, Y Dai, G Wang",
-    "venue": "IEEE Transactions on Circuits and Systems for Video Technology 35 (1), 394–404",
-    "short": "TCSVT",
-    "year": 2024,
-    "citations": 27,
-    "first": false,
-    "url": "https://arxiv.org/abs/2410.08567"
   },
   {
     "id": "gap-rl",
@@ -97,19 +64,8 @@
     "short": "RA-L",
     "year": 2024,
     "citations": 13,
-    "first": false,
-    "url": "https://arxiv.org/abs/2410.03509"
-  },
-  {
-    "id": "region-aware",
-    "title": "Region-aware Grasp Framework with Normalized Grasp Space for Efficient 6-DoF Grasping",
-    "authors": "S Chen, P Xie, W Tang, D Hu, Y Dai, G Wang",
-    "venue": "8th Annual Conference on Robot Learning",
-    "short": "CoRL",
-    "year": 2024,
-    "citations": 8,
-    "first": false,
-    "url": "https://arxiv.org/abs/2406.01767"
+    "url": "https://arxiv.org/abs/2410.03509",
+    "code": "https://github.com/THU-VCLab/GAP-RL"
   },
   {
     "id": "target-oriented",
@@ -119,8 +75,48 @@
     "short": "ECCV",
     "year": 2024,
     "citations": 10,
-    "first": false,
     "url": "https://arxiv.org/abs/2408.11138"
+  },
+  {
+    "id": "region-aware",
+    "title": "Region-aware Grasp Framework with Normalized Grasp Space for Efficient 6-DoF Grasping",
+    "authors": "S Chen, P Xie, W Tang, D Hu, Y Dai, G Wang",
+    "venue": "8th Annual Conference on Robot Learning",
+    "short": "CoRL",
+    "year": 2024,
+    "citations": 8,
+    "url": "https://arxiv.org/abs/2406.01767"
+  },
+  {
+    "id": "mg-grasp",
+    "title": "MG-Grasp: Metric-Scale Geometric 6-DoF Grasping Framework with Sparse RGB Observations",
+    "authors": "K Wang, S Chen, C Jiang, S Shen, Y Dai, G Wang",
+    "venue": "arXiv preprint arXiv:2603.16270",
+    "short": "arXiv",
+    "year": 2026,
+    "citations": 2,
+    "url": "https://arxiv.org/abs/2603.16270"
+  },
+  {
+    "id": "ditr",
+    "title": "Diffusion-based depth inpainting for transparent and reflective objects",
+    "authors": "T Sun, D Hu, Y Dai, G Wang",
+    "venue": "IEEE Transactions on Circuits and Systems for Video Technology 35 (1), 394–404",
+    "short": "TCSVT",
+    "year": 2024,
+    "citations": 27,
+    "url": "https://arxiv.org/abs/2410.08567"
+  },
+  {
+    "id": "watersplat",
+    "title": "WaterSplat-SLAM: Photorealistic Monocular SLAM in Underwater Environment",
+    "authors": "K Wang, S Zou, C Jiang, Y Dai, S Chen, S Shen, G Wang",
+    "venue": "IEEE Robotics and Automation Letters",
+    "short": "RA-L",
+    "year": 2026,
+    "citations": 4,
+    "url": "https://arxiv.org/abs/2604.04642",
+    "code": "https://github.com/THU-VCLab/WaterSplat-SLAM"
   },
   {
     "id": "charging",
@@ -130,7 +126,6 @@
     "short": "J. Cleaner Prod.",
     "year": 2023,
     "citations": 16,
-    "first": false,
     "url": "https://doi.org/10.1016/j.jclepro.2023.138847"
   }
 ]
