@@ -332,3 +332,8 @@ html[data-motion="paused"] .grasp-steps li{transition:none}
 #placed-count{font-variant-numeric:tabular-nums;color:#a7dccc;white-space:nowrap}
 #transfer-path{stroke-linecap:round;stroke-linejoin:round}
 @media(max-width:520px){.scene-status{font-size:16px;margin-inline:4px;padding:10px;gap:6px 12px}.scene-task{gap:7px}}
+
+/* Two short biography paragraphs keep education and research easy to read. */
+.bio + .bio{margin-top:16px}
+.bio-education a{color:#d1e7e9;text-decoration:underline;text-decoration-color:#5f8b8e;text-underline-offset:4px}
+.bio-education a:hover{color:#a5efd5}
