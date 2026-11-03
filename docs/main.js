@@ -192,7 +192,7 @@
   const smooth = value => { const t = Math.max(0,Math.min(1,value)); return t*t*(3-2*t); };
   const mix = (a,b,t) => a+(b-a)*smooth(t);
   const number = value => Number(value.toFixed(3));
-  const safeHeight = x => 180 + Math.max(0,x-425)*.15;
+  const safeHeight = x => 188 + Math.max(0,x-425)*.15;
   const pose = (node,x,y) => node.setAttribute('transform','translate('+number(x)+' '+number(y)+')');
   function taperedArm(node,px,py,qx,qy,startRadius,endRadius) {
     const length=Math.hypot(qx-px,qy-py), ux=(qx-px)/length, uy=(qy-py)/length;
@@ -214,8 +214,8 @@
     const activeObject = objects[index];
     const from = reverse ? activeObject.destination : activeObject.source;
     const to = reverse ? activeObject.source : activeObject.destination;
-    const fromWrist={x:from.x,y:from.y-58};
-    const toWrist={x:to.x,y:to.y-58};
+    const fromWrist={x:from.x,y:from.y-50};
+    const toWrist={x:to.x,y:to.y-50};
     let x=375, y=200, grip=0, phase='approach', holding=false;
     const released=t>=8.1;
     if (t < .7) {
@@ -248,7 +248,7 @@
       const carried = i === index && holding;
       if (i === index) {
         onTray = holding ? false : released ? !reverse : reverse;
-        position = holding ? {x,y:y+58} : released ? to : from;
+        position = holding ? {x,y:y+50} : released ? to : from;
         activeX=position.x; activeY=position.y;
       }
       if (onTray) count++;
@@ -306,7 +306,7 @@
     scene.dataset.shoulderX=number(sx); scene.dataset.shoulderY=number(sy);
     scene.dataset.elbowZ=number(ez); scene.dataset.wristZ=String(wristDepth);
     // Equal opposing jaw travel follows one isometric cube axis. Closed
-    // pads meet the centers of the opposing faces without bending fingers.
+    // pads meet the upper portions of the opposing faces without bending fingers.
     const gap=22-9*grip, diagonal=gap*15/26;
     pose(frontJaw,-gap,diagonal);
     pose(rearJaw,gap,-diagonal);
