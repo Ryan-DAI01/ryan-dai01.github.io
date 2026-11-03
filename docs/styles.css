@@ -335,5 +335,5 @@ html[data-motion="paused"] .grasp-steps li{transition:none}
 
 /* Two short biography paragraphs keep education and research easy to read. */
 .bio + .bio{margin-top:16px}
-.bio-education a{color:#d1e7e9;text-decoration:underline;text-decoration-color:#5f8b8e;text-underline-offset:4px}
-.bio-education a:hover{color:#a5efd5}
+.bio-education a,.department-link{color:#d1e7e9;text-decoration:underline;text-decoration-color:#5f8b8e;text-underline-offset:4px}
+.bio-education a:hover,.department-link:hover{color:#a5efd5}
