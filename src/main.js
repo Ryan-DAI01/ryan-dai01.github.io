@@ -154,7 +154,10 @@
   const upperLink = document.getElementById('upper-arm-path');
   const forearmLink = document.getElementById('forearm-path');
   const elbowNode = document.getElementById('robot-elbow');
-  const handNode = document.getElementById('robot-hand');
+  const gripperNode = document.getElementById('robot-gripper');
+  const gripperFront = document.getElementById('gripper-front');
+  const frontJaw = document.getElementById('working-front-jaw');
+  const rearJaw = document.getElementById('working-rear-jaw');
   const shoulderNode = document.getElementById('robot-shoulder');
   const upperBody = document.getElementById('humanoid-upper-body');
   const headNode = document.getElementById('humanoid-head');
@@ -167,11 +170,6 @@
   const forearmShell=document.getElementById('working-forearm-shell');
   const supportUpperShell=document.getElementById('support-upper-shell');
   const supportForearmShell=document.getElementById('support-forearm-shell');
-  const fingers=[...document.querySelectorAll('.hand-digit')].map(node=>({
-    open:JSON.parse(node.dataset.open), closed:JSON.parse(node.dataset.closed),
-    base:node.querySelector('.finger-base'), surface:node.querySelector('.finger-surface'),
-    jointA:node.querySelector('.finger-joint-a'), jointB:node.querySelector('.finger-joint-b')
-  }));
   const objectLayer = document.getElementById('scene-objects');
   const heldLayer = document.getElementById('held-object-layer');
   const targetFrame = document.getElementById('target-frame');
@@ -194,7 +192,7 @@
   const smooth = value => { const t = Math.max(0,Math.min(1,value)); return t*t*(3-2*t); };
   const mix = (a,b,t) => a+(b-a)*smooth(t);
   const number = value => Number(value.toFixed(3));
-  const safeHeight = x => 200 + Math.max(0,x-425)*.12;
+  const safeHeight = x => 180 + Math.max(0,x-425)*.15;
   const pose = (node,x,y) => node.setAttribute('transform','translate('+number(x)+' '+number(y)+')');
   function taperedArm(node,px,py,qx,qy,startRadius,endRadius) {
     const length=Math.hypot(qx-px,qy-py), ux=(qx-px)/length, uy=(qy-py)/length;
@@ -216,14 +214,14 @@
     const activeObject = objects[index];
     const from = reverse ? activeObject.destination : activeObject.source;
     const to = reverse ? activeObject.source : activeObject.destination;
-    const fromWrist={x:from.x+32,y:from.y-28};
-    const toWrist={x:to.x+32,y:to.y-28};
-    let x=373, y=217, grip=0, phase='approach', holding=false;
+    const fromWrist={x:from.x,y:from.y-58};
+    const toWrist={x:to.x,y:to.y-58};
+    let x=375, y=200, grip=0, phase='approach', holding=false;
     const released=t>=8.1;
     if (t < .7) {
-      // The relaxed hand waits beside the torso while the next target is located.
+      // A compact open gripper waits beside the torso while the target is located.
     } else if (t < 1.8) {
-      x=mix(373,fromWrist.x,(t-.7)/1.1); y=mix(217,safeHeight(fromWrist.x),(t-.7)/1.1);
+      x=mix(375,fromWrist.x,(t-.7)/1.1); y=mix(200,safeHeight(fromWrist.x),(t-.7)/1.1);
     } else if (t < 3) {
       x=fromWrist.x; y=mix(safeHeight(x),fromWrist.y,(t-1.8)/1.2);
     } else if (t < 3.65) {
@@ -240,7 +238,7 @@
     } else if (t < 9.9) {
       x=toWrist.x; y=mix(toWrist.y,safeHeight(x),(t-8.8)/1.1); phase='return';
     } else {
-      x=mix(toWrist.x,373,(t-9.9)/2.1); y=mix(safeHeight(toWrist.x),217,(t-9.9)/2.1); phase='return';
+      x=mix(toWrist.x,375,(t-9.9)/2.1); y=mix(safeHeight(toWrist.x),200,(t-9.9)/2.1); phase='return';
     }
 
     let count = 0, activeX = from.x, activeY = from.y;
@@ -250,11 +248,12 @@
       const carried = i === index && holding;
       if (i === index) {
         onTray = holding ? false : released ? !reverse : reverse;
-        position = holding ? {x:x-32,y:y+28} : released ? to : from;
+        position = holding ? {x,y:y+58} : released ? to : from;
         activeX=position.x; activeY=position.y;
       }
       if (onTray) count++;
-      const layer=carried ? heldLayer : objectLayer;
+      const inContact=i===index && t>=1.8 && t<9.9;
+      const layer=inContact ? heldLayer : objectLayer;
       if (object.node.parentNode !== layer) layer.append(object.node);
       pose(object.node,position.x,position.y);
       object.node.dataset.location=carried ? 'held' : onTray ? 'tray' : 'pile';
@@ -272,15 +271,15 @@
       object.slot.dataset.occupied=String(onTray);
       object.slot.setAttribute('opacity',onTray ? '1' : '.6');
     });
-    // Keep the pile depth sorted. The separate carried-object layer sits
-    // between the forearm and fingers, so the arm cannot obscure its grasp.
+    // Keep the pile depth sorted. During approach and contact, the target
+    // sits between the two jaw layers, including before lift and after release.
     const ordered=[...objectLayer.children].sort((a,b)=>Number(a.dataset.depth)-Number(b.dataset.depth));
     const order=ordered.map(node=>node.id).join(',');
     if (order !== previousOrder) { objectLayer.append(...ordered); previousOrder=order; }
 
     // Solve a 3D arm, then project its joints into the illustration. The
     // forward wrist depth allows a natural elbow posture across the torso.
-    const lean=(x-373)*.04, breath=.6*Math.sin(time*Math.PI/6);
+    const lean=(x-375)*.04, breath=.6*Math.sin(time*Math.PI/6);
     const sx=340+lean, sy=155+breath, a=135, b=160, wristDepth=70;
     const delta=[x-sx,y-sy,wristDepth], distance=Math.hypot(...delta);
     const axis=delta.map(value=>value/distance);
@@ -295,30 +294,27 @@
     upperLink.setAttribute('d','M'+number(sx)+' '+number(sy)+' L'+number(ex)+' '+number(ey));
     forearmLink.setAttribute('d','M'+number(ex)+' '+number(ey)+' L'+number(x)+' '+number(y));
     pose(shoulderNode,sx,sy);
-    pose(elbowNode,ex,ey); pose(handNode,x,y);
+    pose(elbowNode,ex,ey); pose(gripperNode,x,y); pose(gripperFront,x,y);
     pose(upperBody,lean,breath);
-    headNode.setAttribute('transform','rotate('+number(1.5+(x-373)*.012)+' 297 130)');
-    pose(gazeNode,(x-373)*.006,Math.max(-.5,Math.min(1,(y-230)*.006)));
+    headNode.setAttribute('transform','rotate('+number(1.5+(x-375)*.012)+' 297 130)');
+    pose(gazeNode,(x-375)*.006,Math.max(-.5,Math.min(1,(y-230)*.006)));
     const supportX=254+lean, supportY=155+breath;
     const supportElbowX=215+lean*.3, supportElbowY=229+breath*.3;
     supportUpper.setAttribute('d','M'+number(supportX)+' '+number(supportY)+' L'+number(supportElbowX)+' '+number(supportElbowY));
-    supportForearm.setAttribute('d','M'+number(supportElbowX)+' '+number(supportElbowY)+' L205 308');
+    supportForearm.setAttribute('d','M'+number(supportElbowX)+' '+number(supportElbowY)+' L190 273');
     pose(supportShoulder,supportX,supportY); pose(supportElbow,supportElbowX,supportElbowY);
     scene.dataset.shoulderX=number(sx); scene.dataset.shoulderY=number(sy);
     scene.dataset.elbowZ=number(ez); scene.dataset.wristZ=String(wristDepth);
-    // Four fingers curl across the front face; the thumb opposes them
-    // on the top face. Joint positions interpolate, rather than slide apart.
-    for (const finger of fingers) {
-      const points=finger.open.map((point,i)=>point.map((value,j)=>value+(finger.closed[i][j]-value)*grip));
-      const path=points.map((point,i)=>(i?'L':'M')+point.map(number).join(' ')).join(' ');
-      finger.base.setAttribute('d',path); finger.surface.setAttribute('d',path);
-      finger.jointA.setAttribute('cx',number(points[1][0])); finger.jointA.setAttribute('cy',number(points[1][1]));
-      finger.jointB.setAttribute('cx',number(points[2][0])); finger.jointB.setAttribute('cy',number(points[2][1]));
-    }
+    // Equal opposing jaw travel follows one isometric cube axis. Closed
+    // pads meet the centers of the opposing faces without bending fingers.
+    const gap=22-9*grip, diagonal=gap*15/26;
+    pose(frontJaw,-gap,diagonal);
+    pose(rearJaw,gap,-diagonal);
+    scene.dataset.jawGap=number(gap);
     taperedArm(upperShell,sx,sy,ex,ey,13.5,11.5);
     taperedArm(forearmShell,ex,ey,x,y,12,8);
     taperedArm(supportUpperShell,supportX,supportY,supportElbowX,supportElbowY,13,11);
-    taperedArm(supportForearmShell,supportElbowX,supportElbowY,205,308,11.5,8);
+    taperedArm(supportForearmShell,supportElbowX,supportElbowY,190,273,11.5,8);
 
     pose(targetFrame,activeX,activeY);
     targetFrame.setAttribute('stroke',activeObject.color);
