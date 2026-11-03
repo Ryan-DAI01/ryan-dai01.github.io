@@ -14,8 +14,8 @@ This repository uses plain HTML, CSS, JavaScript, and SVG; there are no runtime 
 
 ## Update the website
 
-1. Edit `publications.json` for papers.
-2. Edit `src/index.template.html` for the introduction, selected research, or contact details.
+1. Edit `publications.json` for papers and the selected-work figures, descriptions, and order.
+2. Edit `src/index.template.html` for the introduction and contact details.
 3. Edit `src/styles.css` or `src/main.js` for appearance and interactions.
 4. Run `node build.mjs`, then commit and push the source and `docs/` changes.
 
@@ -34,10 +34,10 @@ Open http://127.0.0.1:4173.
 - Selected works: APeG, Visual Geometric 6-DoF Grasping, and E3GNet; plus the supplied 12-publication bibliography.
 - Search and year filters, publication ordering, and formatted citation copying.
 - Google Scholar and email links.
-- Large, high-contrast typography; responsive layouts; expandable paper figures; and an animated robot concept illustration.
+- A white academic layout, readable typography, responsive paper rows, and expandable original paper figures.
 - No login, analytics, remote fonts, forms, or server-side data collection.
 
-Publication metadata follows the supplied Google Scholar snapshot. Citation counts are dated November 2026 and are not live. The hero is a concept illustration. All three selected works use original figures with sources listed below.
+Publication metadata follows the supplied Google Scholar snapshot. Citation counts are dated November 2026 and are not live. All three selected works use original figures with sources listed below.
 
 Research description sources:
 - https://chenthree.github.io/publication/2025-08-13-APeG
@@ -63,12 +63,13 @@ To request Google indexing, verify the URL-prefix property https://ryan-dai01.gi
 Paper figures are stored locally without changing their content. Click a paper figure to open it at a larger size. Without JavaScript, its link opens the original image directly.
 
 
-## Motion and readability
+## Layout and readability
 
-The dark navy and mint interface uses 20–22 px introduction text, 18 px author names, and at least 16 px metadata. The hero shows a cluttered bin with stacked blocks, cylinders, and scattered parts next to a separate placement tray. A humanoid with a head, torso, two arms, and legs uses a spatial shoulder–elbow–wrist chain to select and grasp three blocks from top to bottom, lift above the clutter, transfer, set down, and release. Each block follows the working gripper only while held and remains in the tray after release. The reverse sequence restacks the blocks from bottom to top, so the 72-second loop has no teleporting resets. The working arm is solved in three dimensions and projected into the scene, with head tracking and a slight torso lean. Both wrists use the same compact parallel gripper. The working gripper approaches from above and closes symmetrically along an isometric cube axis; its pads meet opposite faces. Rear and front jaw layers keep the target visible throughout approach, grasp, and release. The other gripper waits beside the bin. No articulated hands or finger-curl animation are used. Depth ordering, body motion, target scanning, the transfer path, and placement ripples share the robot clock and stop with Pause motion. A lightweight point network provides the background. Cards enter as visitors scroll, and the header shows reading progress.
+The layout is inspired by https://jonbarron.info/: a centered white page, biography and portrait at the top, simple blue links, and vertical paper rows. The implementation uses semantic HTML and a responsive grid. No reference-site content or code is copied.
 
-The Pause motion control stops animation and remembers the preference in localStorage on that browser. A reduced-motion system preference starts the site paused; visitors may explicitly enable it. The canvas stops rendering when the hero is offscreen or the tab is hidden. All content remains available without JavaScript.
+Introduction text is 19 px, paper titles 19 px, authors and descriptions 18 px, and paper metadata 17 px. On narrow screens the portrait moves above the biography and selected-work figures stack above their paper information. Search and sorting are available in a collapsed disclosure. The previous animated scene and decorative effects are no longer displayed or loaded.
 
+All 12 papers and all three selected works are rendered by the build, including author names and equal-contribution marks, so they remain readable without JavaScript. JavaScript enhances search, sorting, figure enlargement, and citation copying. There are no external font or JavaScript dependencies.
 
 ## Profile
 

@@ -8,7 +8,16 @@
     "year": 2025,
     "citations": 7,
     "url": "https://ieeexplore.ieee.org/document/11146494/",
-    "code": "https://github.com/THU-VCLab/APeG"
+    "code": "https://github.com/THU-VCLab/APeG",
+    "selected": {
+      "order": 1,
+      "image": "assets/apeg-framework.png",
+      "width": 1920,
+      "height": 1084,
+      "alt": "APeG framework: semantic understanding and active viewpoint optimization feed a grasp-wise reinforcement learning policy.",
+      "caption": "APeG framework — original figure from the authors’ project repository.",
+      "description": "APeG combines language understanding, active viewpoint exploration, and reinforcement learning to grasp specified objects in heavily cluttered scenes."
+    }
   },
   {
     "id": "visual-geometric",
@@ -18,7 +27,16 @@
     "short": "ISCAS",
     "year": 2026,
     "citations": 1,
-    "url": "https://doi.org/10.1109/ISCAS66217.2026.11562096"
+    "url": "https://doi.org/10.1109/ISCAS66217.2026.11562096",
+    "selected": {
+      "order": 2,
+      "image": "assets/visual-geometric-framework.png",
+      "width": 4372,
+      "height": 1477,
+      "alt": "Camera-agnostic 3D reconstruction from multiple RGB views, followed by heatmap-driven 6-DoF grasp detection.",
+      "caption": "Visual Geometric 6-DoF Grasping — original framework figure supplied by Yixiang Dai.",
+      "description": "A multi-view framework that connects sparse RGB observations with visual geometry for six-degree-of-freedom robotic grasping."
+    }
   },
   {
     "id": "laser-stripe",
@@ -43,7 +61,16 @@
     "equalContribution": [
       "K Yang",
       "Y Dai"
-    ]
+    ],
+    "selected": {
+      "order": 3,
+      "image": "assets/edge-grasp-framework.png",
+      "width": 2560,
+      "height": 799,
+      "alt": "E3GNet framework showing hierarchical heatmaps, region feature propagation, and grasp generation.",
+      "caption": "E3GNet framework — Figure 1 of the paper.",
+      "description": "Hierarchical heatmaps and region feature propagation support efficient, end-to-end grasp detection for deployment on edge devices."
+    }
   },
   {
     "id": "joyai",
