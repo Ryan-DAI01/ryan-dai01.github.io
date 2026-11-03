@@ -155,9 +155,18 @@
   const forearmLink = document.getElementById('forearm-path');
   const elbowNode = document.getElementById('robot-elbow');
   const handNode = document.getElementById('robot-gripper');
+  const shoulderNode = document.getElementById('robot-shoulder');
+  const upperBody = document.getElementById('humanoid-upper-body');
+  const headNode = document.getElementById('humanoid-head');
+  const gazeNode = document.getElementById('humanoid-gaze');
+  const supportUpper = document.getElementById('support-upper-arm-path');
+  const supportForearm = document.getElementById('support-forearm-path');
+  const supportShoulder = document.getElementById('support-shoulder');
+  const supportElbow = document.getElementById('support-elbow');
   const leftJaw = document.getElementById('left-jaw');
   const rightJaw = document.getElementById('right-jaw');
   const objectLayer = document.getElementById('scene-objects');
+  const heldLayer = document.getElementById('held-object-layer');
   const targetFrame = document.getElementById('target-frame');
   const targetScan = document.getElementById('target-scan');
   const transferPath = document.getElementById('transfer-path');
@@ -227,6 +236,8 @@
         activeX=position.x; activeY=position.y;
       }
       if (onTray) count++;
+      const layer=carried ? heldLayer : objectLayer;
+      if (object.node.parentNode !== layer) layer.append(object.node);
       pose(object.node,position.x,position.y);
       object.node.dataset.location=carried ? 'held' : onTray ? 'tray' : 'pile';
       object.node.dataset.depth=carried ? 1000 : onTray ? object.destination.y+32 : object.depth;
@@ -243,20 +254,40 @@
       object.slot.dataset.occupied=String(onTray);
       object.slot.setAttribute('opacity',onTray ? '1' : '.6');
     });
-    // Painter ordering preserves occlusion in the pile and lifts the held
-    // block in front of the bin rim. Reorder only when that ordering changes.
+    // Keep the pile depth sorted. The separate carried-object layer sits
+    // between the forearm and fingers, so the arm cannot obscure its grasp.
     const ordered=[...objectLayer.children].sort((a,b)=>Number(a.dataset.depth)-Number(b.dataset.depth));
     const order=ordered.map(node=>node.id).join(',');
     if (order !== previousOrder) { objectLayer.append(...ordered); previousOrder=order; }
 
-    const dx=x-130, dy=y-348, a=190, b=230;
-    const cosElbow=Math.max(-1,Math.min(1,(dx*dx+dy*dy-a*a-b*b)/(2*a*b)));
-    const elbow=Math.acos(cosElbow);
-    const shoulder=Math.atan2(dy,dx)-Math.atan2(b*Math.sin(elbow),a+b*Math.cos(elbow));
-    const ex=130+a*Math.cos(shoulder), ey=348+a*Math.sin(shoulder);
-    upperLink.setAttribute('d','M130 348 L'+number(ex)+' '+number(ey));
+    // Solve a 3D arm, then project its joints into the illustration. The
+    // forward wrist depth allows a natural elbow posture across the torso.
+    const lean=(x-300)*.025, breath=.6*Math.sin(time*Math.PI/6);
+    const sx=350+lean, sy=145+breath, a=125, b=150, wristDepth=95;
+    const delta=[x-sx,y-sy,wristDepth], distance=Math.hypot(...delta);
+    const axis=delta.map(value=>value/distance);
+    const along=(a*a-b*b+distance*distance)/(2*distance);
+    const radius=Math.sqrt(Math.max(0,a*a-along*along));
+    const pole=[1,.85,-.15];
+    const dot=pole.reduce((sum,value,i)=>sum+value*axis[i],0);
+    const normal=pole.map((value,i)=>value-dot*axis[i]);
+    const normalLength=Math.hypot(...normal);
+    const joint=axis.map((value,i)=>value*along+normal[i]*radius/normalLength);
+    const ex=sx+joint[0], ey=sy+joint[1], ez=joint[2];
+    upperLink.setAttribute('d','M'+number(sx)+' '+number(sy)+' L'+number(ex)+' '+number(ey));
     forearmLink.setAttribute('d','M'+number(ex)+' '+number(ey)+' L'+number(x)+' '+number(y));
+    pose(shoulderNode,sx,sy);
     pose(elbowNode,ex,ey); pose(handNode,x,y);
+    pose(upperBody,lean,breath);
+    headNode.setAttribute('transform','rotate('+number(1.5+(x-300)*.025)+' 297 122)');
+    pose(gazeNode,(x-300)*.012,Math.max(-1.5,Math.min(2,(y-200)*.015)));
+    const supportX=243+lean, supportY=145+breath;
+    const supportElbowX=207+lean*.3, supportElbowY=226+breath*.3;
+    supportUpper.setAttribute('d','M'+number(supportX)+' '+number(supportY)+' L'+number(supportElbowX)+' '+number(supportElbowY));
+    supportForearm.setAttribute('d','M'+number(supportElbowX)+' '+number(supportElbowY)+' L205 308');
+    pose(supportShoulder,supportX,supportY); pose(supportElbow,supportElbowX,supportElbowY);
+    scene.dataset.shoulderX=number(sx); scene.dataset.shoulderY=number(sy);
+    scene.dataset.elbowZ=number(ez); scene.dataset.wristZ=String(wristDepth);
     pose(leftJaw,-gap,0); pose(rightJaw,gap,0);
     pose(targetFrame,activeX,activeY);
     targetFrame.setAttribute('stroke',activeObject.color);

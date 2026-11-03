@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="grasp-scene" viewBox="0 0 600 560" fill="none" role="img" aria-labelledby="hero-art-title hero-art-description" data-phase="approach" data-holding="false">
-<title id="hero-art-title">Robotic manipulation in a cluttered, stacked scene</title>
-<desc id="hero-art-description">A robot sorts three colored blocks from a stack surrounded by boxes, cylinders, and scattered parts. It identifies the top object, closes its fingers, lifts above the clutter, and releases the object into a separate tray. Objects stay where they are placed. The return sequence rebuilds the stack for a seamless loop. Concept illustration.</desc>
+<title id="hero-art-title">Humanoid manipulation in a cluttered, stacked scene</title>
+<desc id="hero-art-description">A humanoid robot with a head, torso, two arms, and legs sorts three colored blocks from a stack surrounded by boxes, cylinders, and scattered parts. Its head follows the working hand while the other hand rests on the workbench. It identifies the top object, closes its articulated fingers, lifts above the clutter, and releases the object into a separate tray. Objects stay where they are placed. The return sequence rebuilds the stack for a seamless loop. Concept illustration.</desc>
 <defs>
  <linearGradient id="bench-bg" x1="50" y1="20" x2="540" y2="550" gradientUnits="userSpaceOnUse"><stop stop-color="#142c3c"/><stop offset=".55" stop-color="#0e1c2d"/><stop offset="1" stop-color="#112939"/></linearGradient>
  <radialGradient id="bench-halo"><stop stop-color="#4cb7a4" stop-opacity=".2"/><stop offset="1" stop-color="#0c2238" stop-opacity="0"/></radialGradient>
@@ -13,8 +13,10 @@
  <filter id="scene-glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="3"/></filter>
  <pattern id="workshop-grid" width="34" height="34" patternUnits="userSpaceOnUse"><path d="M34 0H0V34" stroke="#9ac9d5" stroke-opacity=".08"/></pattern>
  <clipPath id="worktop-clip"><path d="M55 367 258 277 568 393 362 509Z"/></clipPath>
- <path id="upper-arm-path" d="M130 348 101 160"/>
- <path id="forearm-path" d="M101 160 300 142"/>
+ <path id="upper-arm-path" d="M350 145 415 232"/>
+ <path id="forearm-path" d="M415 232 300 142"/>
+ <path id="support-upper-arm-path" d="M243 145 207 226"/>
+ <path id="support-forearm-path" d="M207 226 205 308"/>
 </defs>
 <rect x="12" y="12" width="576" height="536" rx="24" fill="url(#bench-bg)" stroke="#375665"/>
 <rect x="30" y="30" width="540" height="480" rx="18" fill="url(#workshop-grid)"/>
@@ -23,6 +25,56 @@
 <g fill="#b4d4e2" opacity=".65"><circle cx="65" cy="75" r="3"/><circle cx="78" cy="75" r="3" opacity=".5"/><circle cx="91" cy="75" r="3" opacity=".3"/></g>
 <!-- Perspective workbench and a separate receiving tray. -->
 <ellipse cx="315" cy="500" rx="230" ry="28" fill="#020913" opacity=".6" filter="url(#bench-shadow)"/>
+<!-- Humanoid body is behind the workbench; its arms reach over the surface. -->
+<g id="humanoid-body">
+ <g id="humanoid-legs" stroke-linejoin="round">
+  <ellipse cx="260" cy="511" rx="40" ry="12" fill="#030d19" opacity=".6"/>
+  <ellipse cx="333" cy="518" rx="40" ry="11" fill="#030d19" opacity=".55"/>
+  <path d="M272 270 259 371 250 489" stroke="#173143" stroke-width="37" stroke-linecap="round"/>
+  <path d="M272 281 260 370 252 483" stroke="url(#arm-metal-light)" stroke-width="25" stroke-linecap="round"/>
+  <path d="M314 276 325 378 331 496" stroke="#173143" stroke-width="37" stroke-linecap="round"/>
+  <path d="M314 285 324 377 331 489" stroke="url(#arm-metal)" stroke-width="25" stroke-linecap="round"/>
+  <circle cx="259" cy="371" r="19" fill="#314f61" stroke="#b2ccd5" stroke-width="2"/>
+  <circle cx="325" cy="378" r="19" fill="#314f61" stroke="#b2ccd5" stroke-width="2"/>
+  <path d="M239 488c-7 2-17 13-18 19 8 9 51 8 57 0l-9-19Z" fill="url(#arm-metal-light)" stroke="#9bbbc6"/>
+  <path d="M320 496c-3 5-5 14-3 19 13 7 47 5 51-2l-19-18Z" fill="url(#arm-metal)" stroke="#9bbbc6"/>
+  <path d="M224 507c15 6 37 6 52 0m42 8c17 4 35 3 47-1" stroke="#243f53" stroke-width="5"/>
+  <path d="M257 480v14m74-7v15" stroke="#6fc9b8" stroke-width="3"/>
+ </g>
+ <path d="M267 239h58l13 29-16 30-30-13-27 10-15-29Z" fill="#2c4759" stroke="#849fae"/>
+ <path d="M267 244h57l8 24-37 11-35-12Z" fill="url(#arm-metal)"/>
+ <path d="M287 272v16m-15-30 18 6 19-6" stroke="#5e8092" stroke-width="3"/>
+ <g id="humanoid-upper-body">
+  <path d="M265 140c-10 14-11 34-7 60l12 46 22 13 33-11 14-50-4-53Z" fill="#142c3d" stroke="#426579"/>
+  <path d="M269 215h55v26l-28 13-25-12Z" fill="#365263"/>
+  <path d="m272 227 25 8 26-9m-49 10 23 8 23-9" stroke="#91afba" stroke-opacity=".65" stroke-width="3"/>
+  <path d="M250 143q5-12 22-15l21-5 38 8q15 5 20 20l-15 52-18 18h-37l-21-20Z" fill="url(#arm-metal)" stroke="#c4dce0" stroke-width="1.2"/>
+  <path d="m251 143 15 13 11 37 14 10h27l18-21 11-32-15-17 8 60-20 27h-38l-23-19Z" fill="#9eb8c3" fill-opacity=".42"/>
+  <path d="m267 147 29-10 32 10-11 37h-37Z" fill="#e3f1ef"/>
+  <path d="M281 153h35" stroke="#355c6b" stroke-width="3" stroke-linecap="round"/>
+  <path d="M287 160h23" stroke="#6edec0" stroke-width="3" stroke-linecap="round"/>
+  <path d="m283 190 13 6 14-6" stroke="#4a788a" stroke-width="2" stroke-linecap="round"/>
+  <path d="M254 150 248 173m94-19-5 26" stroke="#f4ffff" stroke-opacity=".65" stroke-width="3"/>
+  <g id="humanoid-neck">
+   <path d="M283 106h29v25l-15 6-15-8Z" fill="#284759" stroke="#7b9eaf"/>
+   <path d="m286 114 23 1m-23 6 23 1" stroke="#a7c1c9" stroke-width="3"/>
+  </g>
+  <g id="humanoid-head">
+   <path d="M278 50q18-7 40 0l16 11 3 35-14 19-34 3-22-17-4-32Z" fill="url(#arm-metal)" stroke="#d0e4e7" stroke-width="1.2"/>
+   <path d="m318 51 16 10 3 35-14 19-5-14 8-15-2-26Z" fill="#87a8b8"/>
+   <path d="M276 65q20-9 45 0l6 12-2 18-13 10-24-2-14-13-3-15Z" fill="#132b3d" stroke="#446a80"/>
+   <path d="M278 68q19-7 39-1" stroke="#7eb5c4" stroke-opacity=".5" stroke-width="2"/>
+   <g id="humanoid-gaze">
+    <path d="M282 82h12m10 1h12" stroke="#a7f7db" stroke-width="4" stroke-linecap="round"/>
+    <path d="M282 82h12m10 1h12" stroke="#9cebd1" stroke-width="4" stroke-linecap="round" filter="url(#scene-glow)" opacity=".5"/>
+   </g>
+   <path d="m291 110 13 1" stroke="#6e92a5" stroke-width="2" stroke-linecap="round"/>
+   <path d="M266 72v16" stroke="#adc8d2" stroke-width="5" stroke-linecap="round"/>
+   <ellipse cx="333" cy="80" rx="4" ry="10" fill="#2a4b60" stroke="#afcbd5"/>
+   <path d="M280 56q17-5 30-1" stroke="#f4ffff" stroke-width="2" stroke-linecap="round"/>
+  </g>
+ </g>
+</g>
 <path d="M55 367 362 482 568 393v22L362 531 55 389Z" fill="#122534"/>
 <path d="M55 367 362 509v22L55 389Z" fill="#1a3444"/>
 <path d="M362 509 568 393v22L362 531Z" fill="#244a58"/>
@@ -47,16 +99,6 @@
 <ellipse id="shadow-blue" cx="295" cy="386" rx="27" ry="10" fill="#020a13" opacity=".3"/>
 <ellipse id="shadow-coral" cx="299" cy="386" rx="27" ry="10" fill="#020a13" opacity=".3"/></g>
 <ellipse id="placement-ripple" cx="449" cy="374" rx="29" ry="12" stroke="#b9f6dd" stroke-width="2" opacity="0"/>
-<!-- Robot base and cabling. -->
-<path d="M116 391C91 419 62 405 74 384" stroke="#071422" stroke-width="9"/><path d="M116 391C91 419 62 405 74 384" stroke="#486476" stroke-width="3"/>
-<ellipse cx="130" cy="408" rx="58" ry="20" fill="#020a12" opacity=".55"/>
-<path d="M84 383v17c0 23 92 23 92 0v-17Z" fill="#405c6c"/>
-<ellipse cx="130" cy="383" rx="46" ry="18" fill="#8aa8b4"/>
-<ellipse cx="130" cy="383" rx="35" ry="12" fill="#c7d9db"/>
-<path d="M104 347v31c0 17 52 17 52 0v-31Z" fill="url(#arm-metal)"/>
-<ellipse cx="130" cy="347" rx="26" ry="12" fill="#dfece9"/>
-<path d="M108 358v17" stroke="#f1ffff" stroke-width="3" opacity=".7"/>
-<path d="M88 396c14 10 68 10 84 0" stroke="#92eacb" stroke-width="2" opacity=".8"/>
 <!-- Objects are depth sorted; a held object rises above its occluders. -->
 <g id="scene-objects">
 <g id="clutter-box-0" data-depth="366" transform="translate(257 333) rotate(-9) scale(0.98)"><path d="m-26-15 26-15 26 15-26 15Z" fill="#9295b3" stroke="#eefcff" stroke-opacity=".3" stroke-width=".7"/><path d="m-26-15 26 15v32l-26-15Z" fill="#666e8c"/><path d="M0 0 26-15v32L0 32Z" fill="#444b69"/><path d="M-22-12-4-2V25" stroke="#efffff" stroke-opacity=".3" stroke-width="1.4" stroke-linecap="round"/><path d="M0 0v32" stroke="#e1f5f3" stroke-opacity=".25"/></g>
@@ -80,32 +122,68 @@
 </g>
 <!-- Planning and target cues use the same clock as the physical motion. -->
 <path id="transfer-path" d="M300 229V140H449V281" stroke="url(#planned-route)" stroke-width="1.6" stroke-dasharray="4 7" opacity=".35"/>
+
+<!-- The second arm rests on the clear side of the work surface. -->
+<g id="humanoid-support-arm" stroke-linecap="round" stroke-linejoin="round" filter="url(#arm-shadow)">
+ <use href="#support-upper-arm-path" stroke="#244455" stroke-width="32"/>
+ <use href="#support-upper-arm-path" stroke="url(#arm-metal)" stroke-width="25"/>
+ <use href="#support-upper-arm-path" stroke="#efffff" stroke-opacity=".6" stroke-width="3" transform="translate(-4 -1)"/>
+ <g id="support-shoulder" transform="translate(243 145)"><circle r="21" fill="#345567" stroke="#c9dce1" stroke-width="3"/><circle r="12" fill="#8db1bf"/><path d="M-12-7a14 14 0 0 1 24 0" stroke="#a5f4d7" stroke-width="2"/></g>
+ <use href="#support-forearm-path" stroke="#244455" stroke-width="27"/>
+ <use href="#support-forearm-path" stroke="url(#arm-metal-light)" stroke-width="21"/>
+ <g id="support-elbow" transform="translate(207 226)"><circle r="16" fill="#284a60" stroke="#bed7df" stroke-width="2"/><circle r="7" fill="#8eafbe"/></g>
+ <g id="support-hand" transform="translate(205 308) rotate(-6)">
+  <circle cy="-5" r="11" fill="#234257" stroke="#b5ccd5" stroke-width="2"/>
+  <rect x="-12" y="-2" width="25" height="20" rx="7" fill="url(#arm-metal)"/>
+  <path d="M-9 14v12m6-11v14m6-13v13m6-14v11" stroke="#264657" stroke-width="6"/>
+  <path d="M-9 14v10m6-9v12m6-11v11m6-12v9" stroke="#b4d0d8" stroke-width="4"/>
+  <path d="m12 5 7 7-2 8" stroke="#b2ccd7" stroke-width="6"/>
+  <path d="M-6 4H7" stroke="#83d6c5" stroke-width="2"/>
+ </g>
+</g>
+<!-- A spatial shoulder–elbow–wrist chain drives the working arm. -->
+<g id="robot-links" stroke-linecap="round" stroke-linejoin="round" filter="url(#arm-shadow)">
+ <use href="#upper-arm-path" stroke="#244356" stroke-width="31"/>
+ <use href="#upper-arm-path" stroke="url(#arm-metal)" stroke-width="25"/>
+ <use href="#upper-arm-path" stroke="#f1ffff" stroke-opacity=".65" stroke-width="3" transform="translate(-4 -2)"/>
+ <g id="robot-shoulder" transform="translate(350 145)">
+  <circle r="21" fill="#345567" stroke="#c9dce1" stroke-width="3"/>
+  <circle r="12" fill="#8bb0bd"/>
+  <path d="M-12-7a14 14 0 0 1 24 0" stroke="#a5f4d7" stroke-width="2"/>
+ </g>
+ <use href="#forearm-path" stroke="#244356" stroke-width="27"/>
+ <use href="#forearm-path" stroke="url(#arm-metal-light)" stroke-width="21"/>
+ <use href="#forearm-path" stroke="#edfffc" stroke-opacity=".7" stroke-width="2.5" transform="translate(-3 -2)"/>
+ <g id="robot-elbow" transform="translate(415 232)"><circle r="17" fill="#27495e" stroke="#c5dce1" stroke-width="2"/><circle r="9" fill="#8aafbc"/><circle r="4" fill="#b1e5d7"/></g>
+</g>
+<!-- A carried object is in front of the forearm and behind the fingers. -->
+<g id="held-object-layer"></g>
 <g id="target-frame" transform="translate(300 299)" stroke="#b8ffe2" stroke-width="1.7">
  <path d="M-37-23v-16h16M21-39h16v16M37 23v17H21M-21 40h-16V23"/>
  <path id="target-scan" d="M-28 0H28" stroke-width="1" opacity=".8"/>
  <circle cx="0" cy="-46" r="2.5" fill="#b8ffe2" stroke="none"/>
 </g>
-<g id="robot-links" stroke-linecap="round" stroke-linejoin="round" filter="url(#arm-shadow)">
- <use href="#upper-arm-path" stroke="#587485" stroke-width="38"/>
- <use href="#upper-arm-path" stroke="url(#arm-metal)" stroke-width="31"/>
- <use href="#upper-arm-path" stroke="#f4ffff" stroke-opacity=".65" stroke-width="4" transform="translate(-5 -2)"/>
- <circle cx="130" cy="348" r="26" fill="#263f52" stroke="#a6c2ca" stroke-width="3"/>
- <circle cx="130" cy="348" r="16" fill="#597b8d"/>
- <circle cx="130" cy="348" r="8" fill="#a3dfd1"/>
- <use href="#forearm-path" stroke="#547484" stroke-width="32"/>
- <use href="#forearm-path" stroke="url(#arm-metal-light)" stroke-width="25"/>
- <use href="#forearm-path" stroke="#f3ffff" stroke-opacity=".65" stroke-width="3" transform="translate(-3 -3)"/>
- <g id="robot-elbow" transform="translate(101 160)"><circle r="25" fill="#233f51" stroke="#bfd4d9" stroke-width="3"/><circle r="16" fill="#678b9d"/><circle r="8" fill="#c8eee5"/><path d="M-17-11a20 20 0 0 1 32 0" stroke="#97f1d4" stroke-width="2"/></g>
-</g>
 <g id="robot-gripper" transform="translate(300 142)">
- <circle r="18" fill="#304d63" stroke="#bacfd8" stroke-width="3"/>
- <circle r="8" fill="#a3cbd2"/>
- <path d="M-22 9h44v16h-44Z" fill="#acc9d0"/>
- <rect x="-47" y="18" width="94" height="17" rx="5" fill="#3b5b6e" stroke="#a0c0cb"/>
- <path d="M-40 22h80" stroke="#d8eeed" stroke-width="1.6"/>
- <rect x="-10" y="26" width="20" height="4" rx="2" fill="#a7f1d3"/>
- <g id="left-jaw" transform="translate(-45 0)"><path d="M-8 33H3v9H0v43H-8Z" fill="#c1d5d9" stroke="#e5f4f3" stroke-width=".6"/><rect x="0" y="55" width="4" height="26" rx="1.3" fill="#2c535f"/></g>
- <g id="right-jaw" transform="translate(45 0)"><path d="M-3 33H8v52H0V42H-3Z" fill="#9dbecb" stroke="#e2f1f4" stroke-width=".6"/><rect x="-4" y="55" width="4" height="26" rx="1.3" fill="#2c535f"/></g>
+ <circle r="14" fill="#2e5064" stroke="#bed5dc" stroke-width="2"/>
+ <circle r="6" fill="#a9ced3"/>
+ <path d="M-18 9h36v16h-36Z" fill="#aecbd2"/>
+ <path d="M-43 31h86" stroke="#314e61" stroke-width="10" stroke-linecap="round"/>
+ <rect x="-32" y="18" width="64" height="21" rx="9" fill="url(#arm-metal)" stroke="#bdd4dc"/>
+ <path d="M-23 23h46" stroke="#f2fffc" stroke-width="1.5" stroke-linecap="round"/>
+ <rect x="-10" y="28" width="20" height="4" rx="2" fill="#427a7b"/>
+ <path d="M-5 30H5" stroke="#b3f5db" stroke-width="2" stroke-linecap="round"/>
+ <g id="left-jaw" transform="translate(-45 0)">
+  <path d="M0 34-4 46v34" stroke="#28485c" stroke-width="10" stroke-linecap="round"/>
+  <path d="M0 35-4 46v8m0 7v9m0 7v4" stroke="#d2e5e7" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="-4" cy="56" r="3.5" fill="#608a9c"/><circle cx="-4" cy="73" r="3" fill="#608a9c"/>
+  <rect x="0" y="55" width="4" height="26" rx="1.3" fill="#2c535f"/>
+ </g>
+ <g id="right-jaw" transform="translate(45 0)">
+  <path d="M0 34 4 46v34" stroke="#28485c" stroke-width="10" stroke-linecap="round"/>
+  <path d="M0 35 4 46v8m0 7v9m0 7v4" stroke="#aac9d5" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="4" cy="56" r="3.5" fill="#608a9c"/><circle cx="4" cy="73" r="3" fill="#608a9c"/>
+  <rect x="-4" y="55" width="4" height="26" rx="1.3" fill="#2c535f"/>
+ </g>
 </g>
 <path d="M42 501v17h17m482 0h17v-17M42 59V42h17m482 0h17v17" stroke="#8ab2ba" stroke-width="1.3" opacity=".65"/>
 </svg>
